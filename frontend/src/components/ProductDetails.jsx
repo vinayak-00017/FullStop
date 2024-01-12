@@ -1,4 +1,4 @@
-import { Box, Grid, Typography } from "@mui/material"
+import { Box, Grid, Rating, Typography } from "@mui/material"
 
 export const ProductDetails = ({product}) => {
     return <Grid container spacing={2}>
@@ -13,6 +13,7 @@ export const ProductDetails = ({product}) => {
             <Grid item xs={12} md = {6}  >
                 <Box>
                 <Typography variant="h1">{product.productName}</Typography>
+                
                 </Box>
                 <Box>
                     <Typography variant="h2">${product.price}</Typography>

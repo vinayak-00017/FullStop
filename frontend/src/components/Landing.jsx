@@ -2,7 +2,7 @@ import { useEffect ,useState } from "react";
 import React  from "react";
 import axios from 'axios';
 import {BASE_URL} from '../config' 
-import { Box } from "@mui/material"
+import { Box ,Grid} from "@mui/material"
 import { useNavigate } from "react-router-dom";
 import ProductCard from "./ProductCard";
 
@@ -29,9 +29,13 @@ const Landing = () => {
     }
 
     return <>
+        <Grid container spacing={2}>
        {products.map((product) => {
-        return <RenderProducts product={product} handleClick = {handleClick}></RenderProducts>
+        return  <Grid item xs={12} sm = {6}  lg = {4}>
+                <RenderProducts product={product} handleClick = {handleClick}></RenderProducts>
+            </Grid>     
        })}
+       </Grid>
     </>
 }
 
@@ -40,7 +44,6 @@ function RenderProducts({product,handleClick}){
                 sx={{":hover":{cursor:'pointer'}}}
     >
         <ProductCard product= {product}></ProductCard>
-        {product.productName}
     </Box>
 }
 

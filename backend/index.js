@@ -1,5 +1,6 @@
 const express = require ('express')
 const productRouter = require('./routes/product')
+const userRouter = require('./routes/user')
 const cors = require ('cors')
 const mongoose = require('mongoose')
 require('dotenv').config()
@@ -10,6 +11,7 @@ app.use(express.json());
 
 
 app.use('/product',productRouter);
+app.use('/user',userRouter);
 
 mongoose.connect(`${process.env.MONGO_URL}`)
 
