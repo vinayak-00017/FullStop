@@ -4,6 +4,7 @@ import axios from 'axios';
 import {BASE_URL} from '../config' 
 import { Box } from "@mui/material"
 import { useNavigate } from "react-router-dom";
+import ProductCard from "./ProductCard";
 
 const Landing = () => {
 
@@ -35,7 +36,10 @@ const Landing = () => {
 }
 
 function RenderProducts({product,handleClick}){
-    return <Box onClick = {handleClick(product._id)}>
+    return <Box onClick = {() => handleClick(product._id)}
+                sx={{":hover":{cursor:'pointer'}}}
+    >
+        <ProductCard product= {product}></ProductCard>
         {product.productName}
     </Box>
 }

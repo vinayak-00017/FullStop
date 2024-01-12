@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { BASE_URL } from "../config"
 import { Box, Container } from "@mui/material"
+import { ProductDetails } from "./ProductDetails"
 
 
 const ProductPage = () => {
@@ -25,12 +26,13 @@ const ProductPage = () => {
         getProduct();
     },[])
 
-    return <Container 
-    maxWidth="xxl"
-    sx={{bgcolor:'tomato'}}>
-        
-        hi
-    </Container>
+    return <Box
+        sx={{bgcolor: 'tomato',
+            padding : '3rem',
+        }}
+    >  
+      <ProductDetails product = {product}></ProductDetails>
+   </Box>
 }
 
 export default ProductPage;

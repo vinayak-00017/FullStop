@@ -4,7 +4,14 @@ const productSchema = new mongoose.Schema({
     productName : String,
     description : String,
     price : Number,
-    imgLink : String
+    imgLink : String,
+    ratings  : [
+        {
+            userId : String,
+            rating : Number
+        }
+    ],
+    discount : Number
 
 })
 
