@@ -10,30 +10,29 @@ import { Box, Rating } from '@mui/material';
 
 export default function ProductCard({product}) {
   return (
-    <Box>
-        <Paper elevation={3}>
-        <Box sx={{height:300}} >
+    <Box >
+        <Box sx={{height:'auto'}} >
           <img src={product.imgLink} alt={product.productName}
                 style={{width:'100%',height:'auto'}}
           />
         </Box>
-        <Box>
-            <Typography variant="h4">{product.productName}</Typography>
+        <Box sx={{pt:'1rem'}}>
+            <Typography sx={{fontSize:{xs : '1rem', sm : '1.5rem'}}}>{product.productName}</Typography>
         </Box>
         <Box>
             <Rating name="read-only" value={product.ratings[0].rating} precision={0.1} readOnly />
         </Box>
         <Box sx={{display : 'flex'}}>
-            <Typography variant="h4" >
-            ${product.price - ((product.price * product.discount)/100) }    
+            <Typography sx={{fontSize:{xs : '1.5rem', sm : '2rem'}}} >
+            ${(product.price - ((product.price * product.discount)/100)).toFixed(2) }    
             </Typography>
-            <div style={{display: 'flex',  
-                        marginLeft:'0.7rem',
-                         marginTop:'0.7rem'}}>
-                <Typography variant="h7" color="text.secondary">
+            <div style={{display: 'flex',
+                          fontSize:{xs : '0.7rem', sm : '1rem'}
+                       }}>
+                <Typography  color="text.secondary">
                 List :$
                 </Typography>
-                <Typography variant='h7'
+                <Typography 
                             style={{textDecoration : 'line-through'}} 
                             color = 'text.secondary'
                 >
@@ -41,14 +40,12 @@ export default function ProductCard({product}) {
                 </Typography>
             </div>
          </Box>     
-        </Paper> 
     </Box>
 
 
     // <Card sx={{ maxWidth: 400 ,height : 300 }}>
-    // <Paper elevation={3}>
     //   <CardMedia
-    //     sx={{ height: 200 ,objectFit: 'contain'}}
+    //     sx={{ height: 300 ,objectFit: 'contain'}}
     //     image= {product.imgLink}
     //     title={product.productName}
     //   />
@@ -82,7 +79,7 @@ export default function ProductCard({product}) {
     //   <CardActions>
       
     //   </CardActions>
-    //   </Paper>
+
     // </Card>
   );
 }

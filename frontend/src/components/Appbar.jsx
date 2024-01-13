@@ -3,6 +3,8 @@ import { Box } from "@mui/system";
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useNavigate } from "react-router-dom";
+import { SearchBar } from "./SearchBar";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 export const Appbar = () => {
     const navigate = useNavigate();
@@ -24,16 +26,7 @@ export const Appbar = () => {
                 </Box>
            </Box>   
            <Box sx={{display : 'flex'}}>
-                <TextField variant="outlined"
-                            placeholder="Search for products, brands and more"
-                            sx={{width : '35rem'
-                        }}
-                        InputProps={{
-                            style: {
-                                color: 'white'
-                            }                      
-                            }}
-                />                                  
+               <SearchBar></SearchBar> 
                 
                 <Box >
                     <SearchIcon sx={{fontSize : '3rem',
@@ -43,13 +36,12 @@ export const Appbar = () => {
            </Box>
            <Box>
             <Button>
-                <AccountCircleIcon></AccountCircleIcon>Profile
+                <AccountCircleIcon></AccountCircleIcon>
+                <Typography sx={{display: {xs:'none',sm:'block'}}}>Profile</Typography>
             </Button>
             <Button>
-                Orders
-            </Button>
-            <Button>
-                Cart
+                <ShoppingCartIcon></ShoppingCartIcon>
+                <Typography sx={{display: {xs:'none',sm:'block'}}}>Cart</Typography>
             </Button>
            </Box>
         </Box>        
