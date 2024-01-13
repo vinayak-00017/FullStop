@@ -28,15 +28,18 @@ const Landing = () => {
         navigate('/product/'+id)
     }
 
-    return <>
-        <Grid container spacing={2}>
+    return <Box sx={{pl : 10,
+                    pr : 10,
+                    pt : 5,
+    }}>
+        <Grid container spacing={6}>
        {products.map((product) => {
-        return  <Grid item xs={12} sm = {6}  lg = {4}>
+        return  <Grid item xs={12} sm = {6} md={4} lg = {3}>
                 <RenderProducts product={product} handleClick = {handleClick}></RenderProducts>
             </Grid>     
        })}
        </Grid>
-    </>
+    </Box>
 }
 
 function RenderProducts({product,handleClick}){
