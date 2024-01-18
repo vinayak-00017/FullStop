@@ -4,7 +4,7 @@ import axios from 'axios';
 import {BASE_URL} from '../config' 
 import { Box ,Grid} from "@mui/material"
 import { useNavigate } from "react-router-dom";
-import ProductCard from "./ProductCard";
+import ProductCard from "../components/ProductCard";
 
 const Landing = () => {
 

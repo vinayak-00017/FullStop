@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { BASE_URL } from "../config"
 import { Box, Container } from "@mui/material"
-import { ProductDetails } from "./ProductDetails"
+import { ProductDetails } from "../components/ProductDetails"
 
 
 const ProductPage = () => {

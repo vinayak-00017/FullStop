@@ -14,13 +14,16 @@ export const Appbar = () => {
             display : 'flex',
             justifyContent : 'space-between',
             alignItems : 'center',
-            bgcolor: '#e87121',
+            // bgcolor: '#e87121',
+            bgcolor: '#131921',
             padding : '0.4rem',
+            pl : '4rem',
+            pr : '4rem',
         
         }} >
            <Box>
                 <Box onClick = {()=> navigate('/')}>
-                <img src='fullstop.png' alt="logo"
+                <img src='/fullstop.png' alt="logo"
                     style={{width:'5rem' ,height:'auto'}}
                 ></img>
                 </Box>
@@ -39,7 +42,7 @@ export const Appbar = () => {
                 <AccountCircleIcon></AccountCircleIcon>
                 <Typography sx={{display: {xs:'none',sm:'block'}}}>Profile</Typography>
             </Button>
-            <Button>
+            <Button onClick={() => {navigate('/cart')}}>
                 <ShoppingCartIcon></ShoppingCartIcon>
                 <Typography sx={{display: {xs:'none',sm:'block'}}}>Cart</Typography>
             </Button>
