@@ -43,7 +43,10 @@ export const ProductDetails = ({product}) => {
                                         fontWeight : 'bold'    
                     }}
                         >-{product.discount}%</Typography>
-                        <Typography sx={{fontSize : {xs : '2rem', sm : '2.5rem', md : '2.5rem' , lg : '3.5rem'}}}>${(product.price-(product.discount*product.price)/100).toFixed(2)}</Typography>
+                        <Typography 
+                        sx={{fontSize : {xs : '2rem', sm : '2.5rem', md : '2.5rem' , lg : '3.5rem'}}}>
+                            ${(product.price-(product.discount*product.price)/100).toFixed(2)}
+                            </Typography>
                     </Box>
                     <Box sx={{display : 'flex',
                                 fontSize : {xs : '0.7rem',sm : '1rem',md : '1.2rem',lg : '1.5rem'},

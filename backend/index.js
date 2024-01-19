@@ -5,6 +5,7 @@ const cors = require ('cors')
 const mongoose = require('mongoose')
 require('dotenv').config()
 const app = express();
+const stripeRouter = require('./routes/stripe')
 
 app.use(cors())
 app.use(express.json());
@@ -12,6 +13,7 @@ app.use(express.json());
 
 app.use('/product',productRouter);
 app.use('/user',userRouter);
+app.use('/stripe',stripeRouter)
 
 mongoose.connect(`${process.env.MONGO_URL}`)
 

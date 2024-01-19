@@ -15,7 +15,6 @@ const Landing = () => {
         const getProducts = async() => {
             try {
                 const response = await axios.get(`${BASE_URL}/product/all`)
-                console.log(response.data.products)
                 setProducts(response.data.products)
             }catch(err){
                 console.error(err)
@@ -34,7 +33,7 @@ const Landing = () => {
     }}>
         <Grid container spacing={6}>
        {products.map((product) => {
-        return  <Grid item xs={12} sm = {6} md={4} lg = {3}>
+        return  <Grid key={product._id} item xs={12} sm = {6} md={4} lg = {3}>
                 <RenderProducts product={product} handleClick = {handleClick}></RenderProducts>
             </Grid>     
        })}
@@ -43,7 +42,7 @@ const Landing = () => {
 }
 
 function RenderProducts({product,handleClick}){
-    return <Box onClick = {() => handleClick(product._id)}
+    return <Box  onClick = {() => handleClick(product._id)}
                 sx={{":hover":{cursor:'pointer'}}}
     >
         <ProductCard product= {product}></ProductCard>

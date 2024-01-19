@@ -9,6 +9,7 @@ import { Signup } from './pages/Signup'
 import { Login } from './pages/Login'
 import { RecoilRoot } from 'recoil'
 import { Cart } from './pages/Cart'
+import { Order } from './pages/Order'
 
 
 const theme = createTheme({
@@ -35,10 +36,12 @@ function App() {
         <Route path={'/product/:id'} element={<ProductPage/>}/>
         <Route path='/' element={<Landing/>}/>
         <Route path='/cart' element={<Cart/>}/>
+        <Route path='/order' element={<Order/>}/>
       </Routes>
       </ThemeProvider>
       </RecoilRoot>
     </Router>
+ 
   )
 }
 

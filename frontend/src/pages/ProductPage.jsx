@@ -28,7 +28,9 @@ const ProductPage = () => {
 
     return <Box
         sx={{
-            padding : '5rem',
+            padding : {xs:'2rem',sm:'5rem'},
+            pl: {lg:'8rem'},
+            pr : {lg: '8rem'}
         }}
     >  
       <ProductDetails product = {product}></ProductDetails>

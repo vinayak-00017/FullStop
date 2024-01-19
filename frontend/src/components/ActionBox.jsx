@@ -5,7 +5,7 @@ import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil"
 import { cartState } from "../store/atoms/cart"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LockIcon from '@mui/icons-material/Lock';
 
 
@@ -18,7 +18,7 @@ export const ActionBox = ({size,product}) => {
     const navigate = useNavigate()
 
     const AddToCart = (item,quantity,size) => {  
-        const itemIndex = cart.findIndex((cartItem) => cartItem.item === item && cartItem.size === size);
+        const itemIndex = cart.findIndex((cartItem) => cartItem.item._id === item._id && cartItem.size === size);
         if (itemIndex !== -1) {
             // If the item is in the cart, update its quantity
             const updatedCart = cart.map((cartItem, index) =>
@@ -94,7 +94,7 @@ export const ActionBox = ({size,product}) => {
                             sx={{
                                 borderRadius: 10,
                                 backgroundColor: '#ffd814',
-                                color: 'black'
+                                color: 'black',
                             }}
                         >
                             <ShoppingCart></ShoppingCart> Add to Cart
