@@ -5,6 +5,7 @@ import { cartTotalPrice } from "../store/selectors/cartTotalPrice"
 import { CartProducts } from "../components/CartProducts"
 import LockIcon from '@mui/icons-material/Lock';
 import { useNavigate } from "react-router-dom"
+import { PayButton } from "../components/PayButton"
 
 export const Cart = () => {
     
@@ -37,13 +38,12 @@ export const Cart = () => {
             <Box sx={{p: '1rem'}}>
                 <Button onClick={()=>navigate('/order')}
                 variant='contained'
-                color="secondary"
                 sx={{backgroundColor : '#ffd814',
-                        borderRadius : '10rem',
                         color: 'black',
                         width : '30rem'
                 }}>
                     Proceed to Buy</Button>
+                    <PayButton></PayButton>
                </Box>
                <Box>
                     <LockIcon sx={{fontSize: 'medium'}}></LockIcon> Secure transaction

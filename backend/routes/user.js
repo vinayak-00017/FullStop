@@ -1,18 +1,22 @@
 const express = require('express');
-const {User} =  require('../db')
 require('dotenv').config()
 const router = express.Router();
 const jwt = require('jsonwebtoken')
 const SECRET = `${process.env.SECRET}`;
 const bcrypt = require('bcrypt');
-const {authenticateJwt} = require("../middleware/auth")
+const {authenticateJwt} = require("../middleware/auth");
+const { User } = require('../db/User');
 
 
 router.get("/me",authenticateJwt,async(req,res)=>{
     const user = await User.findOne({username: req.user.username})
     if(!user){
         res.send(403).json({message : "user does not exist"})
+    }else{
+        const user = req.user
+        res.status(200).json({message: 'user verified',user})
     }
+
 })
 
 

@@ -40,7 +40,7 @@ export const Login = ()=> {
             ></TextField>
         </Box>
         <Box>
-            <Button color="secondary" variant="contained"
+            <Button variant="contained"
                     onClick={handleLogin}
             >
                 Login

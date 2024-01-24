@@ -4,7 +4,7 @@ import {  useState } from "react"
 import { ActionBox } from "./ActionBox";
 
 
-export const ProductDetails = ({product}) => {
+export const ProductDetails = ({product,avg}) => {
  
     const [size,setSize] = useState(7)
 
@@ -30,10 +30,9 @@ export const ProductDetails = ({product}) => {
                         {product.productName}</Typography>
                     
                     </Box>
-                    <Box>
-                        {product.ratings && product.ratings[0] &&
-                        <Rating name="read-only" value={product.ratings[0].rating} precision={0.1} readOnly />
-                            }
+                    <Box sx={{display: 'flex'}}>       
+                        <Typography sx={{p: '0.1rem',fontWeight:'bold'}}>{avg}</Typography>
+                        <Rating name="read-only" value={avg} precision={0.1} readOnly />
                     </Box>
                     <Box sx={{display : 'flex',
                             pt : '2rem'
@@ -50,6 +49,7 @@ export const ProductDetails = ({product}) => {
                     </Box>
                     <Box sx={{display : 'flex',
                                 fontSize : {xs : '0.7rem',sm : '1rem',md : '1.2rem',lg : '1.5rem'},
+                                color: '#6b6e77'
                 }}>
                         <Typography variant="h7">List Price : $</Typography>
                         <Typography variant="h7" sx={{textDecoration : 'line-through'}}>{product.price}</Typography>

@@ -38,7 +38,7 @@ export const Appbar = () => {
                 </Box>   
            </Box>
            <Box>
-            <Button>
+            <Button onClick={()=>navigate('/login')}>
                 <AccountCircleIcon></AccountCircleIcon>
                 <Typography sx={{display: {xs:'none',sm:'block'}}}>Profile</Typography>
             </Button>

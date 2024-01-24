@@ -1,21 +1,23 @@
 import { Paper ,Box, TextField, Button} from "@mui/material"
 import { useState } from "react"
-import { BASE_URL } from "../config"
+import { BASE_URL } from "../../config"
 import axios from 'axios'
+import { useNavigate } from "react-router-dom"
 
-export const Signup = () => {
+export const AdminLogin = () => {
 
     const [username,setUsername] = useState('')
     const [password,setPassword] = useState('')
+    const navigate = useNavigate()
 
-    const handleSignup = async() => {
+    const handleLogin = async() => {
         try{
-            const response = await axios.post(`${BASE_URL}/user/signup`,{
+            const response = await axios.post(`${BASE_URL}/admin/login`,{
                 username,
                 password
             }) 
-            console.log(response.data)
             localStorage.setItem("token",`Bearer ${response.data.token}`)
+            navigate('/adminDashboard')
         }catch(err){
             console.error(err)
         }
@@ -51,9 +53,9 @@ export const Signup = () => {
             </Box>
             <Box>
                 <Button variant="contained"
-                        onClick={handleSignup}
+                        onClick={handleLogin}
                 >
-                    Signup
+                    Login
                 </Button>
             </Box>
 

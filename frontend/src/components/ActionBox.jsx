@@ -27,10 +27,12 @@ export const ActionBox = ({size,product}) => {
                 : cartItem
             );
             setCart(updatedCart);
+
           } else {
             // If the item is not in the cart, add a new entry
             setCart([...cart, { item, quantity, size }]);
           }
+          localStorage.setItem('cart',JSON.stringify(cart))
           navigate('/Cart')
     }
 
@@ -89,10 +91,9 @@ export const ActionBox = ({size,product}) => {
                     pt: '1rem',
                     pb: '1rem'
                 }}>
-                        <Button variant='contained' color="secondary" size='large'
+                        <Button variant='contained'  size='large'
                             onClick={() => { AddToCart(product, quantity, size); } }
                             sx={{
-                                borderRadius: 10,
                                 backgroundColor: '#ffd814',
                                 color: 'black',
                             }}
@@ -100,9 +101,7 @@ export const ActionBox = ({size,product}) => {
                             <ShoppingCart></ShoppingCart> Add to Cart
                         </Button>
                     </Box><Box sx={{ p: '1rem' }}>
-                        <Button variant='contained' color="secondary" size='large'
-                            sx={{ borderRadius: 10 }}
-                        >
+                        <Button variant='contained' size='large'>
                             Buy now
                         </Button>
                     </Box>
@@ -111,9 +110,7 @@ export const ActionBox = ({size,product}) => {
                     </Box>
                     </> 
             ): (
-                <Button color="secondary" variant="contained"
-                        sx={{borderRadius : 10}}
-                >
+                <Button  variant="contained">
                     Simailar items
                 </Button>
             )}

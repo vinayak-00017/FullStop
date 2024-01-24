@@ -12,6 +12,7 @@ export const CartProducts = ({item}) => {
     
     const handleDelete = () =>{
         setCart(cart.filter(i => !(i.item._id === item.item._id && i.size === item.size)))
+        localStorage.setItem('cart',JSON.stringify(cart))
     }
 
     const updateQuantity = (num) =>{
@@ -19,6 +20,7 @@ export const CartProducts = ({item}) => {
             ? {...i, quantity : num}
             :i
             ))
+        localStorage.setItem('cart',JSON.stringify(cart))
     }
 
     return <Box>

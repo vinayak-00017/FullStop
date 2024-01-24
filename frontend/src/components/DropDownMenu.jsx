@@ -53,9 +53,12 @@ export default function CustomizedMenus({end,start,def,handleSize}) {
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
-    setSize(event.target.innerText);
-    handleSize(parseInt(event.target.innerText))
+  const handleClose = (event) => {
+    const newSize = parseInt(event.target.innerText);
+    if (!isNaN(newSize)) {
+      setSize(newSize);
+      handleSize(newSize);
+    }
     setAnchorEl(null);
   };
 
@@ -64,7 +67,6 @@ export default function CustomizedMenus({end,start,def,handleSize}) {
       <Button
         variant = 'outlined'
         fontWeight = 'bold'
-        color='secondary'
         sx={{color : 'black',}}
         id="demo-customized-button"
         aria-controls={open ? 'demo-customized-menu' : undefined}
