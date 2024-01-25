@@ -37,23 +37,23 @@ export const ProductDetails = ({product,avg}) => {
                     <Box sx={{display : 'flex',
                             pt : '2rem'
                 }}>
-                        <Typography sx={{color : 'red',
+                   {product.discount > 0 &&  <Typography sx={{color : 'red',
                                         fontSize : {xs : '1rem',sm : '1.5rem',md : '1.8rem',lg : '2rem'},
                                         fontWeight : 'bold'    
                     }}
-                        >-{product.discount}%</Typography>
+                        >-{product.discount}%</Typography>}
                         <Typography 
                         sx={{fontSize : {xs : '2rem', sm : '2.5rem', md : '2.5rem' , lg : '3.5rem'}}}>
                             ${(product.price-(product.discount*product.price)/100).toFixed(2)}
                             </Typography>
                     </Box>
-                    <Box sx={{display : 'flex',
+                    {product.discount > 0 &&<Box sx={{display : 'flex',
                                 fontSize : {xs : '0.7rem',sm : '1rem',md : '1.2rem',lg : '1.5rem'},
                                 color: '#6b6e77'
                 }}>
                         <Typography variant="h7">List Price : $</Typography>
                         <Typography variant="h7" sx={{textDecoration : 'line-through'}}>{product.price}</Typography>
-                    </Box>
+                    </Box>}
                     <Box sx={{display: "flex"}}>
                     <Box sx={{p : '1rem'
                             , display: 'flex'

@@ -1,50 +1,32 @@
 import { Box, Button, CircularProgress, TextField, Typography } from "@mui/material"
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import {toast} from 'react-toastify'
 import { BASE_URL } from "../../config"
 
-export const EditProduct = () => {
+export const CreateProduct = () => {
 
-    const {id} = useParams()
-    const [product,setProduct] = useState()
-    const [loading,setLoading] = useState(true)
-    const [productName,setProductName] = useState()
-    const [price,setPrice] = useState()
-    const [imgLink,setImgLink] = useState()
-    const [description,setDescription] = useState()
-    const [discount,setDiscount] = useState()
-    const [stock,setStock] = useState()
+    const [productName,setProductName] = useState('')
+    const [price,setPrice] = useState(0)
+    const [imgLink,setImgLink] = useState('')
+    const [description,setDescription] = useState('')
+    const [discount,setDiscount] = useState(0)
+    const [stock,setStock] = useState(0)
+    const [category,setCategory] = useState('')
+    const navigate = useNavigate()
     
-    useEffect(()=>{
-        const getDetails = async() =>{
-            try {
-                const response = await axios.get(`${BASE_URL}/product/single/${id}`)
-                setProduct(response.data.product)
-                setProductName(response.data.product.productName)
-                setPrice(response.data.product.price)
-                setImgLink(response.data.product.imgLink)
-                setDescription(response.data.product.description)
-                setDiscount(response.data.product.discount)
-                setStock(response.data.product.stock)
-                setLoading(false)
-      
-            }catch(err){
-                console.error(err)
-            }
-        }    
-        getDetails()
-    },[])
+    
 
-    const handleUpdate = async() => {
+    const handlePost = async() => {
         try{
-            const response = await axios.put(`${BASE_URL}/product/update/${id}`,{
+            const response = await axios.post(`${BASE_URL}/product/new`,{
                productName,
                price,
                imgLink,
                description,
                stock,
+               category,
                discount 
             },{
                 headers:{
@@ -53,6 +35,7 @@ export const EditProduct = () => {
             })
             if(response.status == 200){
                 toast.success(response.data.message)
+                navigate('/adminDashboard')
             }
         }catch(err){
             console.error(err)
@@ -71,10 +54,10 @@ export const EditProduct = () => {
       
 
     return<Box>
-        {loading ? (<Box>
+        <Box>
             <CircularProgress></CircularProgress>
-        </Box>)
-     :(<Box sx={{
+        </Box>
+     <Box sx={{
         display : 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
@@ -82,7 +65,7 @@ export const EditProduct = () => {
         p: '3rem'
     }}>
         <Typography sx={{fontSize: '2.5rem',p : '1rem'}}>
-            Edit Product
+            Create Product
         </Typography>
         <Box sx={{...boxStyles}}>
             <Typography sx={{p: '1rem'}}>
@@ -108,6 +91,17 @@ export const EditProduct = () => {
         </Box>
         <Box sx={{...boxStyles}}>
             <Typography sx={{p: '1rem'}}>
+                Category:
+            </Typography>
+            <TextField 
+            color="secondary"
+            onChange={(e)=> setCategory(e.target.value)}
+            value={category}
+            sx={{...fieldStyles}}
+            />    
+        </Box>
+        <Box sx={{...boxStyles}}>
+            <Typography sx={{p: '1rem'}}>
                 Price:
             </Typography>
             <TextField 
@@ -124,6 +118,7 @@ export const EditProduct = () => {
             </Typography>
             <TextField 
             color="secondary"
+            type="number"
             value={discount}
             onChange={(e)=>setDiscount(Number(e.target.value))}
             sx={{...fieldStyles}}
@@ -135,6 +130,7 @@ export const EditProduct = () => {
             </Typography>
             <TextField 
             color="secondary"
+            type="number"
             value={stock}
             onChange={(e)=>setStock(Number(e.target.value))}
             sx={{...fieldStyles}}   
@@ -151,10 +147,10 @@ export const EditProduct = () => {
             sx={{...fieldStyles}}
             />    
         </Box>
-        <Button onClick={handleUpdate}
+        <Button onClick={handlePost}
         variant="contained" sx={{mt: '2rem'}}>
-            Update
+            post
         </Button>
-    </Box>)}
+    </Box>
     </Box>
 }

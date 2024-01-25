@@ -21,6 +21,8 @@ import { Footer } from './components/Footer'
 import { EditProduct } from './pages/Admin/EditProduct'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
+import { CreateProduct } from './pages/Admin/CreateProduct'
+import { CheckoutSuccess } from './pages/CheckoutSuccess'
 
 
 
@@ -71,10 +73,12 @@ function App() {
         <Route path={'/product/:id'} element={<ProductPage/>}/>
         <Route path='/' element={<Landing/>}/>
         <Route path='/cart' element={<Cart/>}/>
+        <Route path='/checkout-success' element={<CheckoutSuccess/>}/>
         <Route path='/order' element={<Order/>}/>
         <Route path='/adminLogin' element={<AdminLogin/>}/>
         <Route path='/adminDashboard' element={<AdminDashboard/>}/>
         <Route path='/editProduct/:id' element={<EditProduct/>}/>
+        <Route path='/createProduct' element={<CreateProduct/>}/>
       </Routes>
       <ToastContainer/>
       <Footer/>

@@ -21,7 +21,7 @@ export default function ProductCard({product}) {
             <Typography sx={{fontSize:{xs : '1.5rem', sm : '2rem'}}} >
             ${(product.price - ((product.price * product.discount)/100)).toFixed(2) }    
             </Typography>
-            <Box>
+            {product.discount > 0 && <Box>
             <Box sx={{display: 'flex'}}>
                 <Typography  color="text.secondary" sx={{fontSize:{xs : '0.1rem', sm : '1rem'}}}>
                 List :$
@@ -36,7 +36,7 @@ export default function ProductCard({product}) {
                 <Typography sx={{color : 'red'}} >
                     {product.discount}% off
                 </Typography>
-            </Box>
+            </Box>}
          </Box>     
     </Box>
 

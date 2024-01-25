@@ -5,6 +5,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useNavigate } from "react-router-dom";
 import { SearchBar } from "./SearchBar";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 
 export const Appbar = () => {
     const navigate = useNavigate();
@@ -38,6 +39,10 @@ export const Appbar = () => {
                 </Box>   
            </Box>
            <Box>
+            <Button onClick={()=>navigate('/adminDashboard')}>
+                <AdminPanelSettingsIcon></AdminPanelSettingsIcon>
+                <Typography sx={{display: {xs:'none',sm:'block'}}}>Admin</Typography>
+            </Button>
             <Button onClick={()=>navigate('/login')}>
                 <AccountCircleIcon></AccountCircleIcon>
                 <Typography sx={{display: {xs:'none',sm:'block'}}}>Profile</Typography>

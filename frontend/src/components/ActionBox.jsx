@@ -44,14 +44,15 @@ export const ActionBox = ({size,product}) => {
         <Box sx={{display: 'flex',
                     flexWrap : 'wrap',
                     justifyContent : 'center',
+                    // flexDirection: {sm: 'column',md:'row'},
                     p : '2rem'
     }}>
         <Box>
-        <Typography sx={{fontSize : {xs : '2rem', sm : '2rem', md : '2rem' , lg : '2.5rem'}}}>
-            ${(quantity*(product.price-(product.discount*product.price)/100)).toFixed(2)}</Typography>
+            <Typography sx={{fontSize : {xs : '2rem', sm : '2rem', md : '2rem' , lg : '2.5rem'}}}>
+                ${(quantity*(product.price-(product.discount*product.price)/100)).toFixed(2)}</Typography>
         </Box>
         <Box>
-            {product.inStock ? (
+            {product.stock>0 ? (
                 <Typography sx={{color: 'green',
                                 fontSize:{xs: '1rem',md : '1.5rem' ,lg : '1rem'}
                 }}> 
@@ -66,11 +67,17 @@ export const ActionBox = ({size,product}) => {
             )}
         </Box>
         <Box>
-            {product.inStock ? (
-                    <><Box sx={{
+        {product.stock < 10 && product.stock > 0 && (
+                        <Typography sx={{color: 'red', fontSize:{xs: '1rem',sm:'1rem',md : '1rem' ,lg : '1rem'}}}>
+                            Hurry, only {product.stock} left in stock!
+                        </Typography>
+                        )}
+            {product.stock > 0 ? (
+                    <Box><Box sx={{
                     p: '1rem',
                     display: 'flex'
                 }}>
+                   
                     <Typography sx={{
                         pr: '1rem',
                         fontSize: { xs: '1rem', md: '1.2rem', lg: '1.5rem' }
@@ -108,7 +115,7 @@ export const ActionBox = ({size,product}) => {
                     <Box>
                         <LockIcon sx={{fontSize: 'medium'}}></LockIcon> Secure transaction
                     </Box>
-                    </> 
+                    </Box> 
             ): (
                 <Button  variant="contained">
                     Simailar items

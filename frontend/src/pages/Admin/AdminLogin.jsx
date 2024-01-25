@@ -1,4 +1,4 @@
-import { Paper ,Box, TextField, Button} from "@mui/material"
+import { Box, Button, Card, Link, Paper, TextField, Typography } from "@mui/material"
 import { useState } from "react"
 import { BASE_URL } from "../../config"
 import axios from 'axios'
@@ -16,49 +16,81 @@ export const AdminLogin = () => {
                 username,
                 password
             }) 
-            localStorage.setItem("token",`Bearer ${response.data.token}`)
+            localStorage.setItem("adminToken",`Bearer ${response.data.token}`)
             navigate('/adminDashboard')
         }catch(err){
             console.error(err)
         }
     }
 
+    return <Box sx={{display:"flex",
+    flexDirection: 'column',
+    // justifyContent : 'center',
+    alignItems : 'center',
+    backgroundColor: '#e3e6e6',
+    height: '100vh'
+        }}>
+        <Card sx={{m: '1rem'}}>
+        <Paper elevation={5}>
+        <Box sx={{p : '3rem' , pt: '0rem',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                flexDirection: 'column'
+        }}>
 
-    return <Box 
-                sx={{display : 'flex',
-                    alignItems  : 'center',
-                    justifyContent : 'center',
-                    width : '20rem',
-                    p : '20rem'
-            }}
-        >
-        <Paper elevation={4}>
-            <Box>
-                <TextField label="username"
-                            variant="outlined"
-                            type="text"
-                            onChange={(e)=>setUsername(e.target.value)}
-                >
-
-                </TextField>
-            </Box>
-            <Box>
-                <TextField
-                        label="password"
+        <img src="fullstop_orange.png" style={{width:'15rem'}}/>
+        <Typography sx={{fontSize : '3rem'}}>
+                Admin Login
+        </Typography>
+        <Box>
+            <TextField label='username'
                         variant="outlined"
-                        type="password"
-                        onChange={(e)=>setPassword(e.target.value)}
-                >
-                </TextField>
-            </Box>
-            <Box>
-                <Button variant="contained"
-                        onClick={handleLogin}
-                >
-                    Login
-                </Button>
-            </Box>
+                        type = 'text'
+                        color="secondary"
+                        onChange={(e)=>setUsername(e.target.value)}
+                        sx={{m: '1rem'}}
+            >
+            </TextField>
+        </Box>
+        <Box>
+            <TextField
+                label='password'
+                variant="outlined"
+                type='password'
+                color="secondary"
+                onChange={(e)=>setPassword(e.target.value)}
+            ></TextField>
+        </Box>
+        <Box>
+            <Button variant="contained"
+                    onClick={handleLogin}
+                    sx={{m: '1rem'}}
+            >
+                Sign In
+            </Button>
+        </Box>
+        OR
+        <Box sx={{display: 'flex',
+                flexDirection: 'column'
+        }}>
+            <Button variant="contained"
+                    sx={{m: '1rem',
+                    color: 'black',
+                    backgroundColor: '#ffd814'
+                }}>
+                Demo user
+            </Button>
+            <Button variant="contained"
+                    sx={{backgroundColor: '#131921',
+                        width: '18rem'
+                }}>
+                Demo Admin
+            </Button>
+        </Box>
 
+        </Box>
         </Paper>
-    </Box>
-}
+        </Card>
+        </Box>
+        }

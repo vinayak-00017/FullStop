@@ -22,7 +22,7 @@ const authenticateJwt = (req,res,next) => {
 const adminAuthenticateJwt = (req,res,next) => {
     const authHeader = req.headers.authentication;
     if(authHeader){
-        const token = authHeader.split('')[1];
+        const token = authHeader.split(' ')[1];
         jwt.verify(token,ASECRET,(err,admin) => {
             if(err){
                 return res.sendStatus(403)
@@ -36,5 +36,6 @@ const adminAuthenticateJwt = (req,res,next) => {
     };
 
 module.exports = {
-    authenticateJwt
+    authenticateJwt,
+    adminAuthenticateJwt
 }    

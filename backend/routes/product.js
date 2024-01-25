@@ -1,6 +1,6 @@
 const express = require('express');
 const { Product } = require('../db/Product');
-const { authenticateJwt } = require('../middleware/auth');
+const { authenticateJwt, adminAuthenticateJwt } = require('../middleware/auth');
 const { User } = require('../db/User');
 
 
@@ -8,7 +8,7 @@ const router = express.Router();
 
 
 
-router.post('/new',async(req,res) => {
+router.post('/new',adminAuthenticateJwt, async(req,res) => {
     const newProduct = new Product(req.body)
     await newProduct.save();
     res.json({message : 'product created successfully'})
@@ -33,10 +33,10 @@ router.get("/single/:id",async(req,res)=>{
 })
 
 
-router.put('/update/:id',async(req,res)=>{
+router.put('/update/:id',adminAuthenticateJwt,async(req,res)=>{
     const id = req.params.id;
     const product = await Product.findByIdAndUpdate(id,req.body, {new: true})
-    if(note){
+    if(product){
         res.json({message: "product updated successfully"})
     }else{
         res.status(404).json({message : 'product not found'})

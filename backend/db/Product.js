@@ -6,7 +6,8 @@ const productSchema = new mongoose.Schema({
     description : String,
     price : Number,
     imgLink : String,
-    inStock : Boolean,
+    stock : Number,
+    category : String,
     sizes : [],
     ratings  : [
             {
@@ -14,7 +15,6 @@ const productSchema = new mongoose.Schema({
             username : String,
             rating : Number,
             comment : String,
-            category : String,
             date: {
                 type: String,
                 // default: () => {

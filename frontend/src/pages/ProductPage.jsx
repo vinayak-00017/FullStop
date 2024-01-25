@@ -18,7 +18,9 @@ const ProductPage = () => {
             try {
                 const response = await axios.get(`${BASE_URL}/product/single/${id}`)
                 setProduct(response.data.product)
-                setAvgRating(parseFloat(response.data.ratingsAverage.toFixed(1)))
+                if(response.data.ratingsAverage !== null){
+                    setAvgRating(parseFloat(response.data.ratingsAverage.toFixed(1) ))
+                }
                 setLoading(false)
             }catch(err){
                 console.error(err)
