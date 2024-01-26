@@ -4,11 +4,13 @@ import { useState } from "react"
 import { BASE_URL } from "../config"
 import { useNavigate } from "react-router-dom"
 
+
 export const Login = ()=> {
 
     const [username,setUsername] = useState('')
     const [password,setPassword] = useState('')
     const navigate = useNavigate()
+
 
     const handleLogin = async() => {
         try{
@@ -27,10 +29,38 @@ export const Login = ()=> {
         navigate('/signup')
     }
 
+    
+    const demoUser = async() => {
+        try{
+            const response = await axios.post(`${BASE_URL}/user/login`,{
+                username : 'test',
+                password : 'test'
+            })
+            console.log(response.data.message)
+            localStorage.setItem('token',`Bearer ${response.data.token}`)
+            navigate('/')
+        }catch(err){
+            console.error(err)
+        }
+    }
+
+    const demoAdmin = async() => {
+        try{
+            const response = await axios.post(`${BASE_URL}/admin/login`,{
+                username : 'testAdmin',
+                password : 'testAdmin'
+            })
+            console.log(response.data.message)
+            localStorage.setItem("adminToken",`Bearer ${response.data.token}`)
+            navigate('/adminDashboard')
+        }catch(err){
+            console.error(err)
+        }
+    }
+
 
     return <Box sx={{display:"flex",
                     flexDirection: 'column',
-                    // justifyContent : 'center',
                     alignItems : 'center',
                     backgroundColor: '#e3e6e6',
                     height: '100vh'
@@ -80,6 +110,7 @@ export const Login = ()=> {
                         flexDirection: 'column'
             }}>
                     <Button variant="contained"
+                            onClick={demoUser}
                             sx={{m: '1rem',
                             color: 'black',
                             backgroundColor: '#ffd814'
@@ -87,6 +118,7 @@ export const Login = ()=> {
                         Demo user
                     </Button>
                     <Button variant="contained"
+                            onClick={demoAdmin}
                             sx={{backgroundColor: '#131921',
                                 width: '18rem'
                         }}>

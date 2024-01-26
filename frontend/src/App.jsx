@@ -1,4 +1,3 @@
-
 import { Route,BrowserRouter as Router, Routes } from 'react-router-dom'
 import './App.css'
 import ProductPage from './pages/ProductPage'
@@ -7,22 +6,20 @@ import { Appbar } from './components/Appbar'
 import { createTheme,ThemeProvider } from '@mui/material'
 import { Signup } from './pages/Signup'
 import { Login } from './pages/Login'
-import { RecoilRoot, useSetRecoilState } from 'recoil'
+import {  useSetRecoilState } from 'recoil'
 import { Cart } from './pages/Cart'
 import { Order } from './pages/Order'
 import { AdminLogin } from './pages/Admin/AdminLogin'
 import { AdminDashboard } from './pages/Admin/AdminDashboard'
 import { useEffect } from 'react'
 import { cartState } from './store/atoms/cart'
-import { BASE_URL } from './config'
-import axios from 'axios'
-import { userState } from './store/atoms/user'
 import { Footer } from './components/Footer'
 import { EditProduct } from './pages/Admin/EditProduct'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import { CreateProduct } from './pages/Admin/CreateProduct'
 import { CheckoutSuccess } from './pages/CheckoutSuccess'
+import InitUser from './components/InitUser'
 
 
 
@@ -79,6 +76,7 @@ function App() {
         <Route path='/adminDashboard' element={<AdminDashboard/>}/>
         <Route path='/editProduct/:id' element={<EditProduct/>}/>
         <Route path='/createProduct' element={<CreateProduct/>}/>
+        <Route path='/order' element={<Order/>}/>
       </Routes>
       <ToastContainer/>
       <Footer/>
@@ -86,45 +84,6 @@ function App() {
     </Router>
  
   )
-}
-
-function InitUser(){
-  const setUserLogin = useSetRecoilState(userState);
-
-  useEffect(() => {
-  const init = async() => {
-    const token = localStorage.getItem("token")
-            const headers = {
-                'authentication' : token
-            }
-            try{
-                const response = await axios.get(`${BASE_URL}/user/me`, {
-                    headers : headers
-                })
-                if(response.status == 200){
-                    setUserLogin({
-                      isLoading : false,
-                      isUser: response.data.username
-                    })
-                }else{
-                  setUserLogin({
-                    isLoading : false,
-                    isUser: false
-                })
-                }
-            }catch(error){
-                console.error("Authentication check failed:",error);
-                localStorage.removeItem("token");
-                setUserLogin({ 
-                  isLoading : false,
-                  isUser: false 
-                });
-            }
-  }    
-     init();
-    }, [setUserLogin]);
-
-    return <></>
 }
 
 export default App

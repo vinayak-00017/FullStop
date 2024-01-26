@@ -3,7 +3,20 @@ const { Admin } = require('../db/Admin');
 const router = express.Router()
 const ASECRET = `${process.env.ASECRET}`
 const bcrypt = require('bcrypt');
-const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
+const { adminAuthenticateJwt } = require('../middleware/auth');
+
+
+
+router.get('/me',adminAuthenticateJwt,async(req,res) =>{
+    const admin = await Admin.findOne({username: req.admin.username})
+    if(admin){
+        const admin = req.admin
+        res.json({message : 'admin verified',admin})
+    }else{
+        res.status(404).json("admin not found")
+    }
+})
 
 
 router.post('/signup',async(req,res)=>{
@@ -18,7 +31,6 @@ router.post('/signup',async(req,res)=>{
     res.json({message : 'admin created successfully',token})
 })
 
-module.exports = router;
 
 
 router.post('/login',async(req,res)=>{
@@ -32,3 +44,6 @@ router.post('/login',async(req,res)=>{
     }
 })
 
+
+
+module.exports = router;

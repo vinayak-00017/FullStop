@@ -70,25 +70,6 @@ export const AdminLogin = () => {
                 Sign In
             </Button>
         </Box>
-        OR
-        <Box sx={{display: 'flex',
-                flexDirection: 'column'
-        }}>
-            <Button variant="contained"
-                    sx={{m: '1rem',
-                    color: 'black',
-                    backgroundColor: '#ffd814'
-                }}>
-                Demo user
-            </Button>
-            <Button variant="contained"
-                    sx={{backgroundColor: '#131921',
-                        width: '18rem'
-                }}>
-                Demo Admin
-            </Button>
-        </Box>
-
         </Box>
         </Paper>
         </Card>

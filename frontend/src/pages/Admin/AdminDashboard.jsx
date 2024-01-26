@@ -1,15 +1,25 @@
-import { Box, Button, Grid, Typography } from "@mui/material"
+import { Box, Button, CircularProgress, Grid, Typography } from "@mui/material"
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { BASE_URL } from "../../config"
 import { useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
 import EditNoteIcon from '@mui/icons-material/EditNote';
+import { useRecoilValue } from "recoil"
+import { adminState } from "../../store/atoms/admin"
 
 export const AdminDashboard = () =>{
 
     const [products,setProducts] = useState([])
     const navigate = useNavigate()
+    const admin = useRecoilValue(adminState)
+
+ 
+    useEffect(()=>{      
+        if(!admin.isAdmin && !admin.isLoading){
+            navigate('/')
+        }
+    },[admin,navigate])
 
     useEffect(() =>{
         const getProducts = async() =>{
@@ -22,6 +32,12 @@ export const AdminDashboard = () =>{
         }
         getProducts()
     },[])
+
+    if(admin.isLoading){
+        return <Box>
+            <CircularProgress color="secondary"></CircularProgress>
+        </Box>
+    }
 
 
     const handleDelete = () => {

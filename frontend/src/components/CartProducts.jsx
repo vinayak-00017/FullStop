@@ -3,11 +3,16 @@ import { useNavigate } from "react-router-dom"
 import CustomizedMenus from "./DropDownMenu"
 import { useRecoilState } from "recoil"
 import { cartState } from "../store/atoms/cart"
+import { useEffect } from "react"
 
 
 export const CartProducts = ({item}) => {
     const [cart,setCart] = useRecoilState(cartState)
     const navigate = useNavigate()
+
+    useEffect(() => {
+        localStorage.setItem('cart',JSON.stringify(cart))
+    }, [cart]);
     
     
     const handleDelete = () =>{
@@ -20,7 +25,6 @@ export const CartProducts = ({item}) => {
             ? {...i, quantity : num}
             :i
             ))
-        localStorage.setItem('cart',JSON.stringify(cart))
     }
 
     return <Box>
