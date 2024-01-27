@@ -1,7 +1,7 @@
 import { Box, Button, CircularProgress, TextField, Typography } from "@mui/material"
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import {toast} from 'react-toastify'
 import { BASE_URL } from "../../config"
 
@@ -16,6 +16,7 @@ export const EditProduct = () => {
     const [description,setDescription] = useState()
     const [discount,setDiscount] = useState()
     const [stock,setStock] = useState()
+    const navigate = useNavigate()
     
     useEffect(()=>{
         const getDetails = async() =>{
@@ -53,6 +54,7 @@ export const EditProduct = () => {
             })
             if(response.status == 200){
                 toast.success(response.data.message)
+                navigate('/')
             }
         }catch(err){
             console.error(err)
@@ -124,6 +126,7 @@ export const EditProduct = () => {
             </Typography>
             <TextField 
             color="secondary"
+            type="number"
             value={discount}
             onChange={(e)=>setDiscount(Number(e.target.value))}
             sx={{...fieldStyles}}
@@ -136,6 +139,7 @@ export const EditProduct = () => {
             <TextField 
             color="secondary"
             value={stock}
+            type="number"
             onChange={(e)=>setStock(Number(e.target.value))}
             sx={{...fieldStyles}}   
             />    

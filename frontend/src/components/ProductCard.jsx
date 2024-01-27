@@ -14,8 +14,10 @@ export default function ProductCard({product}) {
         <Box sx={{pt:'1rem'}}>
             <Typography sx={{fontSize:{xs : '1rem', sm : '1.5rem'}}}>{product.productName}</Typography>
         </Box>
-        <Box>
+        <Box sx={{display: 'flex'}}>
             <Rating name="read-only" value={product.ratings.reduce((sum,rating) => sum + rating.rating, 0)/product.ratings.length } precision={0.1} readOnly />
+            <Typography sx={{color: 'teal',cursor:'pointer',m:'0.1rem'}}>
+                {`(${product.ratings.length})`}</Typography>
         </Box>
         <Box sx={{display : 'flex'}}>
             <Typography sx={{fontSize:{xs : '1.5rem', sm : '2rem'}}} >

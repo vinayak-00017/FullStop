@@ -19,7 +19,7 @@ export const Cart = () => {
         <Box sx={{pl: '15rem',
             pr : "15rem",
             pt : '5rem',
-            backgroundColor : '#e3e6e6'  
+            backgroundColor : '#e3e6e6',
             }}>
             {total!= 0 ?(<Box sx={{backgroundColor:'#ffffff',
                 textAlign : 'center',

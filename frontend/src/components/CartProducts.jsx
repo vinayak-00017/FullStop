@@ -31,19 +31,20 @@ export const CartProducts = ({item}) => {
                 <Box 
                 sx={{backgroundColor:'#ffffff',
                 display : 'flex',
-                p : '2rem'
+                p : '1.5rem'
                     }}>
             <Grid container spacing={5}>
                 <Grid item md={3.5} >
-                    <Box onClick={()=> navigate(`/product/${item.item._id}`)}
+                    <Box onClick={()=> navigate(`/product/${item.item._id}`) }
                     height={150}
+                    sx={{cursor : 'pointer'}}
                     >
                         <img src={item.item.imgLink} style={{maxHeight : '100%'}}></img>
                     </Box>
                 </Grid>
                 <Grid item md={6}>
                     <Box>
-                        <Typography onClick={()=> navigate(`/product/${item.item._id}`)}>
+                        <Typography onClick={()=> navigate(`/product/${item.item._id}`)} sx={{cursor: 'pointer'}}>
                             {item.item.productName} 
                         </Typography>
     
@@ -52,15 +53,15 @@ export const CartProducts = ({item}) => {
                         <Typography>Qunatity: </Typography>
                             <CustomizedMenus end = {10} start ={1} def={item.quantity} handleSize={updateQuantity}>
                             </CustomizedMenus>   
-                        <Typography sx={{color : 'teal'}}
+                        <Typography sx={{color : 'teal',cursor: 'pointer',pt: '0.5rem'}}
                                     onClick={handleDelete}
                         >Delete</Typography>
                     </Box>                                
                 </Grid>
                 <Grid item md={2.5}>
-                    <Typography 
+                    {(item.item.discount >0) &&<Typography 
                             sx={{color : 'red'}}
-                    >{item.item.discount}% off</Typography>
+                    >{item.item.discount}% off</Typography>}
                     ${(item.item.price-(item.item.discount*item.item.price)/100).toFixed(2)}
                     <Box sx={{display : 'flex',
                                     fontSize : {xs : '0.7rem',sm : '1rem',md : '1.2rem',lg : '1.5rem'},

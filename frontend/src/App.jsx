@@ -2,7 +2,7 @@ import { Route,BrowserRouter as Router, Routes } from 'react-router-dom'
 import './App.css'
 import ProductPage from './pages/ProductPage'
 import Landing from './pages/Landing'
-import { Appbar } from './components/Appbar'
+import { Appbar } from './components/Appbar/Appbar'
 import { createTheme,ThemeProvider } from '@mui/material'
 import { Signup } from './pages/Signup'
 import { Login } from './pages/Login'
@@ -20,6 +20,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { CreateProduct } from './pages/Admin/CreateProduct'
 import { CheckoutSuccess } from './pages/CheckoutSuccess'
 import InitUser from './components/InitUser'
+import { InitProducts } from './components/InitProducts'
+import { SearchResults } from './pages/SearchResults'
 
 
 
@@ -63,6 +65,7 @@ function App() {
     <Router>
       <ThemeProvider theme={theme}>
         <InitUser></InitUser>
+        <InitProducts></InitProducts>
       <Appbar/>
       <Routes>
         <Route path='/login' element={<Login/>}/>
@@ -77,8 +80,13 @@ function App() {
         <Route path='/editProduct/:id' element={<EditProduct/>}/>
         <Route path='/createProduct' element={<CreateProduct/>}/>
         <Route path='/order' element={<Order/>}/>
+        <Route path='/search' element={<SearchResults/>}/>
       </Routes>
-      <ToastContainer/>
+      <ToastContainer
+      position="top-right"
+      className="toast-container"
+      toastClassName="dark-toast"
+      />
       <Footer/>
       </ThemeProvider>
     </Router>

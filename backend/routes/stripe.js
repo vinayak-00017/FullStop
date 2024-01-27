@@ -34,4 +34,32 @@ router.post('/create-checkout-session', async (req, res) => {
   res.json({url : session.url});
 });
 
+//Stripe webhook
+
+// This is your Stripe CLI webhook secret for testing your endpoint locally.
+const endpointSecret = "whsec_2946f7ac947d113662bbeb22344b6afd7c00919643b048fbd14a271a51567aab";
+
+router.post('/webhook', express.raw({type: 'application/json'}), (request, response) => {
+  const sig = request.headers['stripe-signature'];
+  const payload = req.body;
+  const payloadString = JSON.stringify(payload, null, 2);
+  const header = stripe.webhooks.generateTestHeaderString({
+    payload: payloadString,})
+
+  let event;
+
+  try {
+    event = stripe.webhooks.constructEvent(payloadString,header, endpointSecret);
+    console.log('verified')
+  } catch (err) {
+    response.status(400).send(`Webhook Error: ${err.message}`);
+    return;
+  }
+
+  // Return a 200 response to acknowledge receipt of the event
+  response.send().end();
+});
+
+
+
 module.exports = router

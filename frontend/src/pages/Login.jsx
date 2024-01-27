@@ -1,16 +1,27 @@
-import { Box, Button, Card, Link, Paper, TextField, Typography } from "@mui/material"
+import { Box, Button, Card, CircularProgress, Link, Paper, TextField, Typography } from "@mui/material"
 import axios from "axios"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { BASE_URL } from "../config"
 import { useNavigate } from "react-router-dom"
-
+import { useRecoilValue, useSetRecoilState } from "recoil"
+import { adminState } from "../store/atoms/admin"
+import { userState } from "../store/atoms/user"
 
 export const Login = ()=> {
 
     const [username,setUsername] = useState('')
     const [password,setPassword] = useState('')
     const navigate = useNavigate()
+    const setAdmin = useSetRecoilState(adminState)
+    const setUser  = useSetRecoilState(userState)
+    const user = useRecoilValue(userState)
+    const admin = useRecoilValue(adminState)
 
+    useEffect(()=>{
+        if(admin.isAdmin || user.isUser){
+            navigate('/')
+        }
+    },[admin,user])
 
     const handleLogin = async() => {
         try{
@@ -32,12 +43,16 @@ export const Login = ()=> {
     
     const demoUser = async() => {
         try{
+            const username = 'test'
             const response = await axios.post(`${BASE_URL}/user/login`,{
-                username : 'test',
+                username ,
                 password : 'test'
             })
             console.log(response.data.message)
             localStorage.setItem('token',`Bearer ${response.data.token}`)
+            setUser({
+                isUser : username
+            })
             navigate('/')
         }catch(err){
             console.error(err)
@@ -46,16 +61,24 @@ export const Login = ()=> {
 
     const demoAdmin = async() => {
         try{
+            const username = 'testAdmin'
             const response = await axios.post(`${BASE_URL}/admin/login`,{
-                username : 'testAdmin',
+                username ,
                 password : 'testAdmin'
             })
             console.log(response.data.message)
             localStorage.setItem("adminToken",`Bearer ${response.data.token}`)
+            setAdmin({
+                isAdmin: username
+            })
             navigate('/adminDashboard')
         }catch(err){
             console.error(err)
         }
+    }
+
+    if(user.isLoading && admin.isLoading){
+        return <CircularProgress color="secondary"></CircularProgress>
     }
 
 

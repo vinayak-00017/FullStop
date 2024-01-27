@@ -9,17 +9,22 @@ export const Footer = () => {
         justifyContent : 'space-between',
         alignItems : 'center',
         padding : '0.4rem',
-        pl : '4rem',
-        pr : '4rem'
+        pl : {xs:'2rem',sm:'5rem',md:'10rem'},
+        pr : {xs:'2rem',sm:'5rem',md:'10rem'},
+        bgcolor:'#131921' ,
+        // position: 'absolute',
+        // bottom: 0,
+        // left: 0,
+        // right: 0
         }}>
-        <Box sx={{ display : 'flex' , alignItems: 'center', justifyContent: 'center'}}>
+        <Box sx={{ display : 'flex' , alignItems: 'center', justifyContent: 'center',color:'white'}}>
             <CopyrightIcon fontSize="small"></CopyrightIcon>
             <Typography>
                 2024 FullSTOP
             </Typography>
         </Box>
-        <Box >
-            <GitHubIcon fontSize='small'></GitHubIcon>
+        <Box sx={{color: 'white'}}>
+            <GitHubIcon fontSize='small'sx={{mr:'2rem'}}></GitHubIcon>
             <XIcon fontSize="small"></XIcon>
         </Box>
     </Box>

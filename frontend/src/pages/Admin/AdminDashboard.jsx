@@ -7,34 +7,24 @@ import { toast } from "react-toastify"
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import { useRecoilValue } from "recoil"
 import { adminState } from "../../store/atoms/admin"
+import { productsState } from "../../store/atoms/products"
 
 export const AdminDashboard = () =>{
 
-    const [products,setProducts] = useState([])
+    const products = useRecoilValue(productsState)
     const navigate = useNavigate()
     const admin = useRecoilValue(adminState)
 
- 
+   
     useEffect(()=>{      
         if(!admin.isAdmin && !admin.isLoading){
             navigate('/')
         }
     },[admin,navigate])
 
-    useEffect(() =>{
-        const getProducts = async() =>{
-            try{
-                const response = await axios.get(`${BASE_URL}/product/all`)
-                setProducts(response.data.products)
-            }catch(err){
-                console.error(err)
-            }
-        }
-        getProducts()
-    },[])
 
     if(admin.isLoading){
-        return <Box>
+        return <Box sx={{display : 'flex' ,justifyContent : 'center' , alignItems:'center', width : '100%',height:'100vh'}}>
             <CircularProgress color="secondary"></CircularProgress>
         </Box>
     }
@@ -83,7 +73,7 @@ export const AdminDashboard = () =>{
                 </Grid>
             </Grid>   
         </Box>    
-            {products.map(product => {
+            {products.products.map(product => {
                 return <Box key = {product._id} sx={{p : '2rem'}} >
                 <ProductTable product={product} handleDelete={handleDelete} handleEdit={handleEdit}></ProductTable>
                 </Box>

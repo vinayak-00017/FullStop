@@ -3,8 +3,8 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { BASE_URL } from "../config"
 import { Box, CircularProgress, Container, Divider, Typography } from "@mui/material"
-import { ProductDetails } from "../components/ProductDetails"
-import { Reviews } from "../components/Reviews"
+import { ProductDetails } from "../components/ProductPage/ProductDetails"
+import { Reviews } from "../components/ProductPage/Reviews"
 
 
 const ProductPage = () => {
@@ -34,7 +34,7 @@ const ProductPage = () => {
 
     return <Box>
         {loading ? (
-        <Box sx={{display : 'flex' ,justifyContent : 'center' , alignItems:'center', width : '100%',height: '60vh'}}>
+        <Box sx={{display : 'flex' ,justifyContent : 'center' , alignItems:'center', width : '100%',height: '100vh'}}>
             <CircularProgress color="secondary"/>
             </Box>) :(
     <Box

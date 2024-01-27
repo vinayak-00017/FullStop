@@ -8,7 +8,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { Rating } from '@mui/material';
 import axios from 'axios';
-import { BASE_URL } from '../config';
+import { BASE_URL } from '../../config';
 import { useParams } from 'react-router-dom';
 import Alert from '@mui/material/Alert';
 

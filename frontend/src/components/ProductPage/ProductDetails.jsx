@@ -1,8 +1,8 @@
 import { Box, Button, Card, Grid, Paper, Rating, Typography } from "@mui/material"
-import CustomizedMenus from "./DropDownMenu"
+import CustomizedMenus from "../DropDownMenu"
 import {  useState } from "react"
 import { ActionBox } from "./ActionBox";
-
+import { Link } from 'react-scroll';
 
 export const ProductDetails = ({product,avg}) => {
  
@@ -33,6 +33,9 @@ export const ProductDetails = ({product,avg}) => {
                     <Box sx={{display: 'flex'}}>       
                         <Typography sx={{p: '0.1rem',fontWeight:'bold'}}>{avg}</Typography>
                         <Rating name="read-only" value={avg} precision={0.1} readOnly />
+                        <Typography component={Link} to="reviews"
+                        sx={{p:'0.1rem',pl:'1rem',fontWeight:'bold',color:'teal',cursor:'pointer'}}>
+                            {`(${product.ratings.length})`}</Typography>
                     </Box>
                     <Box sx={{display : 'flex',
                             pt : '2rem'

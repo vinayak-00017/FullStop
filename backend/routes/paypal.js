@@ -82,6 +82,7 @@ const createOrder = async (cart) => {
 * @see https://developer.paypal.com/docs/api/orders/v2/#orders_capture
 */
 const captureOrder = async (orderID) => {
+  const payload = req.body;
   const accessToken = await generateAccessToken();
   const url = `${base}/v2/checkout/orders/${orderID}/capture`;
   
@@ -135,9 +136,10 @@ router.post("/api/orders", async (req, res) => {
   }
 });
   
-router.post("/api/orders/:orderID/capture", async (req, res) => {
+router.post("/api/orders/:orderID", async (req, res) => {
   try {
     const { orderID } = req.params;
+    console.log(orderID)
     const { jsonResponse, httpStatusCode } = await captureOrder(orderID);
     res.status(httpStatusCode).json(jsonResponse);
   } catch (error) {
@@ -151,6 +153,5 @@ router.get("/", (req, res) => {
   res.sendFile(path.resolve("./client/checkout.html"));
 });
   
-
 
 module.exports = router

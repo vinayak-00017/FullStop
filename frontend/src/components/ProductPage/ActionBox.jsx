@@ -4,9 +4,10 @@ import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil"
-import { cartState } from "../store/atoms/cart"
+import { cartState } from "../../store/atoms/cart"
 import { useEffect, useState } from "react";
 import LockIcon from '@mui/icons-material/Lock';
+import { toast } from "react-toastify";
 
 
 
@@ -34,6 +35,7 @@ export const ActionBox = ({size,product}) => {
           }
           localStorage.setItem('cart',JSON.stringify(cart))
           navigate('/Cart')
+          toast.success("Added to cart")
     }
 
 

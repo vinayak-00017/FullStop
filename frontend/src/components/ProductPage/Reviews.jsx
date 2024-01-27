@@ -3,7 +3,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import FormDialog from "./ReviewDialog";
 
 export const Reviews = ({ratings,avg}) => {
-    return <Box >
+    return <Box id='reviews'>
         <Typography sx={{fontWeight: 'bold',
                     fontSize : '1.5rem',
                     p : '0.5rem'
@@ -23,10 +23,13 @@ export const Reviews = ({ratings,avg}) => {
                     </Typography>
                     
                 </Box>
+                <Typography sx={{color :'#585b5b'}}>
+                    {ratings.length} global ratings
+                </Typography>
                 <Divider sx={{p: '1rem'}}></Divider>
                 <Box>
                     <Typography sx={{fontWeight: 'bold',
-                    fontSize : '1.5rem',
+                    fontSize : {xs:'1.3rem',sm:'1.5rem'},
                     p : '0.5rem',
                     pb : '0rem'
                     }}>
@@ -37,12 +40,13 @@ export const Reviews = ({ratings,avg}) => {
                     </Typography>
                     <FormDialog></FormDialog>
                 </Box>
+                <Divider sx={{p: '1rem'}}></Divider>
             </Box>
             </Grid>
             <Grid item md={8}>
                 <Box>
                     <Typography sx={{fontWeight: 'bold',
-                                    fontSize : '2rem'
+                                    fontSize : {xs:'1.5rem',sm:'2rem'}
                 }}>
                         Customer Reviews
                     </Typography>

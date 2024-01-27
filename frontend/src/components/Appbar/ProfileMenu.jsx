@@ -3,17 +3,22 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { Typography } from '@mui/material';
+import { Badge, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
-import { admin } from '../store/selectors/admin';
-import { user } from '../store/selectors/user';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { admin } from '../../store/selectors/admin';
+import { user } from '../../store/selectors/user';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import { adminState } from '../../store/atoms/admin';
+import { userState } from '../../store/atoms/user';
 
 export default function BasicMenu() {
     const adminname = useRecoilValue(admin)
     const username = useRecoilValue(user)
     const navigate = useNavigate() 
-    const [title, setTitle] = React.useState('sign in')
+    const [title, setTitle] = React.useState('user')
+    const setAdmin = useSetRecoilState(adminState)
+    const setUser = useSetRecoilState(userState)
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -37,13 +42,19 @@ export default function BasicMenu() {
   const handleLogout = () =>{
     localStorage.removeItem('token')
     localStorage.removeItem('adminToken')
+    setAdmin({
+      isAdmin: false
+    })
+    setUser({
+      isUser: false
+    })
     setAnchorEl(null)
     navigate('/login')
   }
 
   return (
     <div>
-      <Button
+      {/* <Button
         id="basic-button"
         aria-controls={open ? 'basic-menu' : undefined}
         aria-haspopup="true"
@@ -51,8 +62,19 @@ export default function BasicMenu() {
         onClick={handleClick}
       >
         <AccountCircleIcon></AccountCircleIcon>
-        <Typography sx={{display: {xs:'none',sm:'block'}}}>{title}</Typography>
-      </Button>
+        <Typography sx={{display: {xs:'none',md:'block'}}}>{title}</Typography>
+        <ArrowDropDownIcon></ArrowDropDownIcon>
+      </Button> */}
+      <Badge color="secondary" 
+            aria-controls={open ? 'basic-menu' : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? 'true' : undefined}
+            onClick={handleClick}
+                sx={{color: 'white',cursor: 'pointer',ml:'1rem'}} >
+                   <AccountCircleIcon></AccountCircleIcon>
+                   <Typography sx={{display: {xs:'none',md:'block'}}}>{title}</Typography>
+                   <ArrowDropDownIcon></ArrowDropDownIcon>
+               </Badge>
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}

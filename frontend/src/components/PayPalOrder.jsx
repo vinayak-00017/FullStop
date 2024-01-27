@@ -22,12 +22,11 @@ export const PayPalOrder = () => {
           // like product skus and quantities
 
           body: JSON.stringify({
-            cart: [
+            cart:[ 
               {
                 description: "shoes",
                 cost : '543',
               },
-
             ],
 
           }),
@@ -42,9 +41,10 @@ export const PayPalOrder = () => {
 
       const onApprove = (data) => {
 
+        console.log(data)
          // Order is captured on the server and the response is returned to the browser
 
-         return fetch("/my-server/capture-paypal-order", {
+         return fetch(`${BASE_URL}/paypal/api/orders/${data.orderID}`, {
 
           method: "POST",
 
@@ -62,12 +62,20 @@ export const PayPalOrder = () => {
 
         })
 
-        .then((response) =>{
-            console.log('payment successful', response.json())
-            response.json();
-        } )
-
-      };
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.text().then(text => text ? JSON.parse(text) : {})
+        })
+        .then((data) => {
+          console.log('payment successful', data);
+        })
+        .catch((error) => {
+          console.error('There has been a problem with your fetch operation:', error);
+        });
+        
+  };
 
       return (
 
