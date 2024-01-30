@@ -11,7 +11,7 @@ const ProductPage = () => {
 
     const [product,setProduct] = useState({})
     const [loading,setLoading] = useState(true)
-    const [avgRating, setAvgRating] = useState()
+    const [avgRating, setAvgRating] = useState(0)
     const {id} = useParams()
 
      const getProduct = async() => { 

@@ -1,7 +1,5 @@
-import { Backdrop, Box, Hidden, TextField, alpha } from '@mui/material';
-import axios from 'axios';
-import { useEffect, useRef, useState } from 'react';
-import { BASE_URL } from '../../config';
+import { Backdrop, Box, TextField } from '@mui/material';
+import {  useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SearchIcon from '@mui/icons-material/Search';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
@@ -12,14 +10,18 @@ import { filteredProductsState } from '../../store/selectors/productSearch';
 export const SearchBar = () => {
 
     const navigate = useNavigate()
-    const [keyword, setKeyword] = useState('')
     const setSearch = useSetRecoilState(searchState)
     const useSearch = useRecoilValue(searchState)
     const filtredProducts = useRecoilValue(filteredProductsState)
     const [isClicked, setIsClicked] = useState(false);
 
     const handleSubmit = () => {
-        navigate(`/search/${keyword}`)
+        setIsClicked(false)
+        navigate(`/search/`)
+    }
+
+    const handleClick = (id) => {
+        window.location.href = `/product/${id}`
     }
 
     return<Box >
@@ -33,14 +35,14 @@ export const SearchBar = () => {
                     setSearch(e.target.value)
                 }
                 onFocus={()=>setIsClicked(true)}
-                onBlur={()=>setIsClicked(false)}
+                onBlur={()=>setTimeout(() => setIsClicked(false), 150)}
                 onKeyDown={(e)=>{
                     if(e.key === 'Enter'){
                         handleSubmit()
                     }
                 }}
                 sx={{width : { xs:'18rem',sm:'15rem',md:'26rem',lg:'35rem'},
-                zIndex: 2
+                zIndex: 3
             }}
             InputProps={{
                 style: {
@@ -64,10 +66,11 @@ export const SearchBar = () => {
                 overflow: 'hidden',
                 overflowY: 'auto',
                 boxShadow: 'rgba(0,0,0,0.35) 0px 5px 15px',
-                zIndex: 2
+                zIndex: 3
 }}>
         {filtredProducts.map((value,key)=>{
             return <Box key={key} sx={{width : '100%'
+                            , zIndex: 3
                             ,height : '50px',
                             display: 'flex',
                             alignItems: 'center',
@@ -77,12 +80,14 @@ export const SearchBar = () => {
                                 backgroundColor: 'lightgray', // Change this to the desired highlight color
                               },
                             cursor: 'pointer'
-            }}>
+            }}
+            onClick ={()=> handleClick(value._id)}
+            >
                 {value.productName}
             </Box>
         })}
     </Box> }    
-    <Backdrop open={isClicked} style={{ color: '#fff', zIndex: 1 }}>
+    <Backdrop open={isClicked} style={{ color: '#fff', zIndex: 2 }}>
 </Backdrop>                 
 </Box>
 

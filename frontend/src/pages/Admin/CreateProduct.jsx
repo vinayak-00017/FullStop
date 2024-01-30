@@ -4,9 +4,13 @@ import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import {toast} from 'react-toastify'
 import { BASE_URL } from "../../config"
+import { useRecoilValue, useSetRecoilState } from "recoil"
+import { productsState } from "../../store/atoms/products"
 
 export const CreateProduct = () => {
 
+    const setProducts = useSetRecoilState(productsState)
+    const products = useRecoilValue(productsState)
     const [productName,setProductName] = useState('')
     const [price,setPrice] = useState(0)
     const [imgLink,setImgLink] = useState('')
@@ -16,19 +20,19 @@ export const CreateProduct = () => {
     const [category,setCategory] = useState('')
     const navigate = useNavigate()
     
-    
 
     const handlePost = async() => {
         try{
-            const response = await axios.post(`${BASE_URL}/product/new`,{
-               productName,
-               price,
-               imgLink,
-               description,
-               stock,
-               category,
-               discount 
-            },{
+            const product = {
+                productName,
+                price,
+                imgLink,
+                description,
+                stock,
+                category,
+                discount 
+            }
+            const response = await axios.post(`${BASE_URL}/product/new`,product,{
                 headers:{
                     authentication : localStorage.getItem('adminToken')
                 }

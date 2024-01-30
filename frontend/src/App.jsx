@@ -1,7 +1,7 @@
 import { Route,BrowserRouter as Router, Routes } from 'react-router-dom'
 import './App.css'
 import ProductPage from './pages/ProductPage'
-import Landing from './pages/Landing'
+import Landing from './pages/Landing/Landing'
 import { Appbar } from './components/Appbar/Appbar'
 import { createTheme,ThemeProvider } from '@mui/material'
 import { Signup } from './pages/Signup'
