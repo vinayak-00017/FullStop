@@ -29,8 +29,8 @@ export const Login = ()=> {
                 username,
                 password
             })
-            console.log(response.data)
             localStorage.setItem("token",`Bearer ${response.data.token}`)
+            navigate('/')
         }catch(err){
             console.error(err)
         }

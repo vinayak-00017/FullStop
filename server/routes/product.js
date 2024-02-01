@@ -43,6 +43,16 @@ router.put('/update/:id',adminAuthenticateJwt,async(req,res)=>{
     }
 })
 
+router.delete('/delete/:id',adminAuthenticateJwt,async(req,res)=>{
+    const id = req.params.id;
+    const product = await Product.findByIdAndDelete(id)
+    if(!product){
+        return res.status(404).json({message : 'product not found!'})
+    }else{
+        res.json({message: 'product deleted !!'})
+    }
+})
+
 
 router.put('/review/:id',authenticateJwt,async(req,res)=>{
     const id = req.params.id;

@@ -32,7 +32,6 @@ const Landing = () => {
       );
       setItemOffset(newOffset);
     };
-
   
     
     const handleClick = async(id) => {
@@ -62,15 +61,15 @@ const Landing = () => {
         <Box >
             <Carousel animation="slide" interval={6000} indicators={false} changeOnFirstRender={true} >
                 {
-                    shuffleArray(products.products).map((item,i)=><Item key={i} item={item}></Item>)
+                    shuffleArray(products.products).map((item,i)=><Item key={i} item={item} navigate={navigate}></Item>)
                 }
             </Carousel>
         </Box>
-        <Typography sx={{fontSize:'4rem',p:'2rem'}}>
+        <Typography sx={{fontSize:'3rem',pt:'3rem'}}>
             Latest Products
         </Typography>
-        <Grid container spacing={6}>
-       {currentItems.map((product) => {
+        <Grid container spacing={6} sx={{mt:'1rem'}}>
+       {shuffleArray(currentItems).map((product) => {
         return  <Grid key={product._id} item xs={12} sm = {6} md={4} lg = {3}>
                 <RenderProducts product={product} handleClick = {handleClick}></RenderProducts>
             </Grid>     
@@ -101,23 +100,42 @@ function RenderProducts({product,handleClick}){
 
 
 
-function Item({item})
+function Item({item,navigate})
 {
     return (
-        <Box sx={{display:"flex",justifyContent:'center'}}>
+        <Box sx={{display:"flex",justifyContent:'center'}} 
+        onClick={() =>navigate(`/product/${item._id}`)}>
             <Box>
-                <Box>             
-                    <img style={{height:'20rem'}} 
+                <Box sx={{height:{xs:'5rem',sm:'10rem',md:'20rem'}}}>             
+                    <img style={{height:'100%'}} 
                     src={item.imgLink} alt={item.productName} />
                 </Box>
                 <Box sx={{display:'flex',justifyContent:'center'}}>
-                    <Typography sx={{fontSize:'2rem',p:'2rem'}}>
+                    <Typography sx={{fontSize:{xs:'1rem',sm:'1.5rem',md:'2rem'},pt:'2rem'}}>
                         {item.productName}
                     </Typography>
                 </Box>
-                <Box>
-
-                </Box>
+                <Box sx={{display : 'flex',justifyContent:'center'}}>
+                    <Typography sx={{fontSize:{xs : '1.5rem', sm : '2rem'}}} >
+                    ${(item.price - ((item.price * item.discount)/100)).toFixed(2) }    
+                    </Typography>
+                    {item.discount > 0 && <Box>
+                    <Box sx={{display: 'flex'}}>
+                        <Typography  color="text.secondary" sx={{fontSize:{xs : '0.1rem', sm : '1rem'}}}>
+                        List :$
+                        </Typography>
+                        <Typography 
+                                    style={{textDecoration : 'line-through'}} 
+                                    color = 'text.secondary'
+                        >
+                            {item.price} 
+                        </Typography>
+                    </Box>
+                        <Typography sx={{color : 'red'}} >
+                            {item.discount}% off
+                        </Typography>
+                </Box>}
+         </Box>     
             </Box>
         </Box>
     )

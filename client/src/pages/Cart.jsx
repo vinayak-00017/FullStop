@@ -13,7 +13,6 @@ export const Cart = () => {
     const total = useRecoilValue(cartTotalPrice).toFixed(2)
     const navigate = useNavigate()
 
-    console.log(Scart)
 
     return (
         <Box sx={{pl: '15rem',

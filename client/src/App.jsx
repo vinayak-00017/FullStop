@@ -3,7 +3,7 @@ import './App.css'
 import ProductPage from './pages/ProductPage'
 import Landing from './pages/Landing/Landing'
 import { Appbar } from './components/Appbar/Appbar'
-import { createTheme,ThemeProvider } from '@mui/material'
+import { Box, createTheme,ThemeProvider } from '@mui/material'
 import { Signup } from './pages/Signup'
 import { Login } from './pages/Login'
 import {  useSetRecoilState } from 'recoil'
@@ -22,6 +22,7 @@ import { CheckoutSuccess } from './pages/CheckoutSuccess'
 import InitUser from './components/InitUser'
 import { InitProducts } from './components/InitProducts'
 import { SearchResults } from './pages/SearchResults'
+import { ErrorPage } from './pages/ErrorPage'
 
 
 
@@ -33,6 +34,9 @@ const theme = createTheme({
     secondary : {
       main : '#e87121'
     }
+  },
+  typography:{
+    fontFamily: 'Raleway,Kanit , sans-serif'
   },
 
   components:{
@@ -62,6 +66,11 @@ function App() {
   })
 
   return (
+    <Box sx={{
+      display: 'flex',
+      flexDirection: 'column',
+      minHeight: '100vh'
+    }}>
     <Router>
       <ThemeProvider theme={theme}>
         <InitUser></InitUser>
@@ -81,6 +90,7 @@ function App() {
         <Route path='/createProduct' element={<CreateProduct/>}/>
         <Route path='/order' element={<Order/>}/>
         <Route path='/search' element={<SearchResults/>}/>
+        <Route path='/*' element={<ErrorPage/>} />
       </Routes>
       <ToastContainer
       position="top-right"
@@ -90,6 +100,7 @@ function App() {
       <Footer/>
       </ThemeProvider>
     </Router>
+    </Box>
  
   )
 }

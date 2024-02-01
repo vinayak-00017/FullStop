@@ -42,9 +42,11 @@ export default function FormDialog() {
           'authentication' : localStorage.getItem('token')
         }
       })
-      alert(response.data.message)
-      window.location.reload()
+        alert(response.data.message)
+        window.location.reload()
+   
     }catch(err){
+      alert("sign in as a user to post review :>")
       console.error(err)
     }
   }

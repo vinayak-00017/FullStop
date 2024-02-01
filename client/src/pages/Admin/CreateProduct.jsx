@@ -4,57 +4,44 @@ import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import {toast} from 'react-toastify'
 import { BASE_URL } from "../../config"
+import { useRecoilValue, useSetRecoilState } from "recoil"
+import { productsState } from "../../store/atoms/products"
 
-export const EditProduct = () => {
+export const CreateProduct = () => {
 
-    const {id} = useParams()
-    const [product,setProduct] = useState()
-    const [loading,setLoading] = useState(true)
-    const [productName,setProductName] = useState()
-    const [price,setPrice] = useState()
-    const [imgLink,setImgLink] = useState()
-    const [description,setDescription] = useState()
-    const [discount,setDiscount] = useState()
-    const [stock,setStock] = useState()
+    const setProducts = useSetRecoilState(productsState)
+    const products = useRecoilValue(productsState)
+    const [productName,setProductName] = useState('')
+    const [price,setPrice] = useState(0)
+    const [imgLink,setImgLink] = useState('')
+    const [description,setDescription] = useState('')
+    const [discount,setDiscount] = useState(0)
+    const [stock,setStock] = useState(0)
+    const [category,setCategory] = useState('')
     const navigate = useNavigate()
     
-    useEffect(()=>{
-        const getDetails = async() =>{
-            try {
-                const response = await axios.get(`${BASE_URL}/product/single/${id}`)
-                setProduct(response.data.product)
-                setProductName(response.data.product.productName)
-                setPrice(response.data.product.price)
-                setImgLink(response.data.product.imgLink)
-                setDescription(response.data.product.description)
-                setDiscount(response.data.product.discount)
-                setStock(response.data.product.stock)
-                setLoading(false)
-      
-            }catch(err){
-                console.error(err)
-            }
-        }    
-        getDetails()
-    },[])
 
-    const handleUpdate = async() => {
+    const handlePost = async() => {
         try{
-            const response = await axios.put(`${BASE_URL}/product/update/${id}`,{
-               productName,
-               price,
-               imgLink,
-               description,
-               stock,
-               discount 
-            },{
+            const categories = category.split(',')
+            const product = {
+                productName,
+                price,
+                imgLink,
+                description,
+                stock,
+                category:categories,
+                discount 
+            }
+            const response = await axios.post(`${BASE_URL}/product/new`,product,{
                 headers:{
                     authentication : localStorage.getItem('adminToken')
                 }
             })
             if(response.status == 200){
                 toast.success(response.data.message)
-                navigate('/')
+                navigate('/adminDashboard')
+                // window.location.reload()
             }
         }catch(err){
             console.error(err)
@@ -73,10 +60,10 @@ export const EditProduct = () => {
       
 
     return<Box>
-        {loading ? (<Box>
+        <Box>
             <CircularProgress></CircularProgress>
-        </Box>)
-     :(<Box sx={{
+        </Box>
+     <Box sx={{
         display : 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
@@ -84,7 +71,7 @@ export const EditProduct = () => {
         p: '3rem'
     }}>
         <Typography sx={{fontSize: '2.5rem',p : '1rem'}}>
-            Edit Product
+            Create Product
         </Typography>
         <Box sx={{...boxStyles}}>
             <Typography sx={{p: '1rem'}}>
@@ -105,6 +92,17 @@ export const EditProduct = () => {
             color="secondary"
             onChange={(e)=> setDescription(e.target.value)}
             value={description}
+            sx={{...fieldStyles}}
+            />    
+        </Box>
+        <Box sx={{...boxStyles}}>
+            <Typography sx={{p: '1rem'}}>
+                Category:
+            </Typography>
+            <TextField 
+            color="secondary"
+            onChange={(e)=> setCategory(e.target.value)}
+            value={category}
             sx={{...fieldStyles}}
             />    
         </Box>
@@ -138,8 +136,8 @@ export const EditProduct = () => {
             </Typography>
             <TextField 
             color="secondary"
-            value={stock}
             type="number"
+            value={stock}
             onChange={(e)=>setStock(Number(e.target.value))}
             sx={{...fieldStyles}}   
             />    
@@ -155,10 +153,10 @@ export const EditProduct = () => {
             sx={{...fieldStyles}}
             />    
         </Box>
-        <Button onClick={handleUpdate}
+        <Button onClick={handlePost}
         variant="contained" sx={{mt: '2rem'}}>
-            Update
+            post
         </Button>
-    </Box>)}
+    </Box>
     </Box>
 }

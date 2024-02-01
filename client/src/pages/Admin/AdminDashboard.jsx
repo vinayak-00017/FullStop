@@ -8,6 +8,7 @@ import EditNoteIcon from '@mui/icons-material/EditNote';
 import { useRecoilValue } from "recoil"
 import { adminState } from "../../store/atoms/admin"
 import { productsState } from "../../store/atoms/products"
+import { ProductTable } from "./ProductTable"
 
 export const AdminDashboard = () =>{
 
@@ -15,7 +16,7 @@ export const AdminDashboard = () =>{
     const navigate = useNavigate()
     const admin = useRecoilValue(adminState)
 
-   
+
     useEffect(()=>{      
         if(!admin.isAdmin && !admin.isLoading){
             navigate('/')
@@ -30,12 +31,7 @@ export const AdminDashboard = () =>{
     }
 
 
-    const handleDelete = () => {
-
-    }
-
     const handleEdit = (id) => {
-        toast.success("nice")
         navigate(`/editProduct/${id}`)
     }
 
@@ -75,35 +71,10 @@ export const AdminDashboard = () =>{
         </Box>    
             {products.products.map(product => {
                 return <Box key = {product._id} sx={{p : '2rem'}} >
-                <ProductTable product={product} handleDelete={handleDelete} handleEdit={handleEdit}></ProductTable>
+                <ProductTable product={product} handleEdit={handleEdit}></ProductTable>
                 </Box>
             })}
     </Box>
 }
 
 
-const ProductTable = ({product,handleDelete,handleEdit}) =>{
-    return < Box> 
-    <Grid container spacing={2}>
-            <Grid item md={3} >
-                {product._id}           
-            </Grid>
-            <Grid item md={5}>
-                {product.productName}
-            </Grid>
-            <Grid item md={2}>
-                {product.category}
-            </Grid>
-            <Grid item md={2}>
-                <Box>
-                    <Button onClick={() => handleEdit(product._id)}>
-                        edit
-                    </Button>
-                    <Button onClick={() => handleDelete}>
-                        Delete
-                    </Button>
-                </Box>
-            </Grid>
-        </Grid>
-        </Box>
-}

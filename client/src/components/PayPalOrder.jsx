@@ -1,8 +1,13 @@
 import { PayPalButtons } from "@paypal/react-paypal-js";
 import { BASE_URL } from "../config";
+import { useRecoilValue } from "recoil";
+import { cartTotalPrice } from "../store/selectors/cartTotalPrice";
+import { user } from "../store/selectors/user";
 
 export const PayPalOrder = () => {
     
+  const totalCost = useRecoilValue(cartTotalPrice)
+  const userName = useRecoilValue(user)
     const createOrder = (data) => {
 
         // Order is created on the server and the order id is returned
@@ -24,8 +29,8 @@ export const PayPalOrder = () => {
           body: JSON.stringify({
             cart:[ 
               {
-                description: "shoes",
-                cost : '543',
+                userName: userName,
+                cost : totalCost,
               },
             ],
 
@@ -64,7 +69,7 @@ export const PayPalOrder = () => {
 
         .then((response) => {
           if (!response.ok) {
-            throw new Error('Network response was not ok');
+            throw new Error(`Network response was not ok, status was ${response.status} ${response.statusText}`);
           }
           return response.text().then(text => text ? JSON.parse(text) : {})
         })

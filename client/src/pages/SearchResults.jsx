@@ -1,4 +1,4 @@
-import { Box, Grid, Typography } from "@mui/material"
+import { Box, Button, Grid, Typography } from "@mui/material"
 import { useNavigate, useParams } from "react-router-dom"
 import { useRecoilValue } from "recoil"
 import { filteredProductsState } from "../store/selectors/productSearch"
@@ -20,7 +20,7 @@ export const SearchResults = () => {
                 pt : {xs:'3rem'},
                 }}>
             <Box>
-                <Typography sx={{fontSize:'5rem'}}>
+                <Typography sx={{fontSize:{xs:'3rem',md:'5rem'}}}>
                     Results for "{useSearch}"
                 </Typography>
             </Box>
@@ -41,9 +41,16 @@ export const SearchResults = () => {
                         <Box>
                             <img src="/not_found.jpg"
                                 style={{height:'60vh'}}></img>
-                                <Typography sx={{fontSize: '4rem'}}>    
+                                <Box sx={{display:'flex',justifyContent:'center'}}>
+                                <Typography sx={{fontSize: {xs:'2rem',md:'4rem'}}}>    
                                     nothing to show ...
                                 </Typography>
+                                </Box>
+                                <Box sx={{display:"flex",justifyContent:'center'}}>
+                                <Button onClick={()=>navigate('/')}>
+                                    BACK TO HOME
+                                </Button>
+                                </Box>
                         </Box>
                         
                     </Box>

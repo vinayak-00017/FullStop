@@ -3,6 +3,7 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import XIcon from '@mui/icons-material/X';
 import CopyrightIcon from '@mui/icons-material/Copyright';
 
+
 export const Footer = () => {
     return <Box sx={{
         display : 'flex',
@@ -12,10 +13,7 @@ export const Footer = () => {
         pl : {xs:'2rem',sm:'5rem',md:'10rem'},
         pr : {xs:'2rem',sm:'5rem',md:'10rem'},
         bgcolor:'#131921' ,
-        // position: 'absolute',
-        // bottom: 0,
-        // left: 0,
-        // right: 0
+        mt:'auto'
         }}>
         <Box sx={{ display : 'flex' , alignItems: 'center', justifyContent: 'center',color:'white'}}>
             <CopyrightIcon fontSize="small"></CopyrightIcon>
@@ -24,8 +22,11 @@ export const Footer = () => {
             </Typography>
         </Box>
         <Box sx={{color: 'white'}}>
-            <GitHubIcon fontSize='small'sx={{mr:'2rem'}}></GitHubIcon>
-            <XIcon fontSize="small"></XIcon>
+            <a>
+
+            <GitHubIcon fontSize='small'sx={{mr:'2rem',cursor:'pointer'}} onClick={()=>{window.open('https://github.com/vinayak-00017/FullStop')}}></GitHubIcon>
+            </a>
+            <XIcon fontSize="small" sx={{cursor:'pointer'}} onClick={()=>{window.open('https://twitter.com/Vinayak00017')}}></XIcon>
         </Box>
     </Box>
 }

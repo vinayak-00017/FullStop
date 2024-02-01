@@ -4,35 +4,52 @@ import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import {toast} from 'react-toastify'
 import { BASE_URL } from "../../config"
-import { useRecoilValue, useSetRecoilState } from "recoil"
-import { productsState } from "../../store/atoms/products"
 
-export const CreateProduct = () => {
+export const EditProduct = () => {
 
-    const setProducts = useSetRecoilState(productsState)
-    const products = useRecoilValue(productsState)
-    const [productName,setProductName] = useState('')
-    const [price,setPrice] = useState(0)
-    const [imgLink,setImgLink] = useState('')
-    const [description,setDescription] = useState('')
-    const [discount,setDiscount] = useState(0)
-    const [stock,setStock] = useState(0)
-    const [category,setCategory] = useState('')
+    const {id} = useParams()
+    const [product,setProduct] = useState()
+    const [loading,setLoading] = useState(true)
+    const [productName,setProductName] = useState()
+    const [price,setPrice] = useState()
+    const [imgLink,setImgLink] = useState()
+    const [description,setDescription] = useState()
+    const [discount,setDiscount] = useState()
+    const [stock,setStock] = useState()
+    const [category,setCategory] = useState()
     const navigate = useNavigate()
     
-
-    const handlePost = async() => {
-        try{
-            const product = {
-                productName,
-                price,
-                imgLink,
-                description,
-                stock,
-                category,
-                discount 
+    useEffect(()=>{
+        const getDetails = async() =>{
+            try {
+                const response = await axios.get(`${BASE_URL}/product/single/${id}`)
+                setProduct(response.data.product)
+                setProductName(response.data.product.productName)
+                setPrice(response.data.product.price)
+                setImgLink(response.data.product.imgLink)
+                setDescription(response.data.product.description)
+                setDiscount(response.data.product.discount)
+                setStock(response.data.product.stock)
+                setCategory(response.data.product.category.join(','))
+                setLoading(false)
+      
+            }catch(err){
+                console.error(err)
             }
-            const response = await axios.post(`${BASE_URL}/product/new`,product,{
+        }    
+        getDetails()
+    },[])
+
+    const handleUpdate = async() => {
+        try{
+            const response = await axios.put(`${BASE_URL}/product/update/${id}`,{
+               productName,
+               price,
+               imgLink,
+               description,
+               stock,
+               discount 
+            },{
                 headers:{
                     authentication : localStorage.getItem('adminToken')
                 }
@@ -40,6 +57,7 @@ export const CreateProduct = () => {
             if(response.status == 200){
                 toast.success(response.data.message)
                 navigate('/adminDashboard')
+                window.location.reload()
             }
         }catch(err){
             console.error(err)
@@ -58,10 +76,10 @@ export const CreateProduct = () => {
       
 
     return<Box>
-        <Box>
+        {loading ? (<Box>
             <CircularProgress></CircularProgress>
-        </Box>
-     <Box sx={{
+        </Box>)
+     :(<Box sx={{
         display : 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
@@ -69,7 +87,7 @@ export const CreateProduct = () => {
         p: '3rem'
     }}>
         <Typography sx={{fontSize: '2.5rem',p : '1rem'}}>
-            Create Product
+            Edit Product
         </Typography>
         <Box sx={{...boxStyles}}>
             <Typography sx={{p: '1rem'}}>
@@ -134,8 +152,8 @@ export const CreateProduct = () => {
             </Typography>
             <TextField 
             color="secondary"
-            type="number"
             value={stock}
+            type="number"
             onChange={(e)=>setStock(Number(e.target.value))}
             sx={{...fieldStyles}}   
             />    
@@ -151,10 +169,10 @@ export const CreateProduct = () => {
             sx={{...fieldStyles}}
             />    
         </Box>
-        <Button onClick={handlePost}
+        <Button onClick={handleUpdate}
         variant="contained" sx={{mt: '2rem'}}>
-            post
+            Update
         </Button>
-    </Box>
+    </Box>)}
     </Box>
 }
