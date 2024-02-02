@@ -23,6 +23,8 @@ import InitUser from './components/InitUser'
 import { InitProducts } from './components/InitProducts'
 import { SearchResults } from './pages/SearchResults'
 import { ErrorPage } from './pages/ErrorPage'
+import { Shipping } from './pages/Shipping'
+import { Profile } from './pages/Profile'
 
 
 
@@ -90,6 +92,8 @@ function App() {
         <Route path='/createProduct' element={<CreateProduct/>}/>
         <Route path='/order' element={<Order/>}/>
         <Route path='/search' element={<SearchResults/>}/>
+        <Route path='/shipping' element={<Shipping/>}/>
+        <Route path='/profile' element={<Profile/>}/>
         <Route path='/*' element={<ErrorPage/>} />
       </Routes>
       <ToastContainer

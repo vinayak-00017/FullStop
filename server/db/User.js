@@ -6,6 +6,7 @@ const hashPassword = require('../middleware/hashing')
 const userSchema = new mongoose.Schema({
     username : String,
     password : String,
+    email : String,
 
 })
 

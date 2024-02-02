@@ -2,7 +2,16 @@ const mongoose =  require("mongoose");
 
 //Order
 const orderSchema = new mongoose.Schema({
+    orderId: String,
     userId : {type : mongoose.Schema.Types.ObjectId, ref : 'User'},
+    address: {
+        name : String,
+        houseAddress : String,
+        city : String,
+        zip : String,
+        country : String,
+        mNumber : String
+    },
     products : [
         {
             productId : {type: mongoose.Schema.Types.ObjectId, ref : 'Product'},
