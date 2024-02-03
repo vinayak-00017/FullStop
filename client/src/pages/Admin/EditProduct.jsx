@@ -71,7 +71,7 @@ export const EditProduct = () => {
       };
     
     const fieldStyles = {
-        width : '500px'
+        width : {xs:'250px',sm:'350px',md:'500px'}
     }
       
 
@@ -84,9 +84,9 @@ export const EditProduct = () => {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        p: '3rem'
+        p: {xs:'1rem',md:'3rem'}
     }}>
-        <Typography sx={{fontSize: '2.5rem',p : '1rem'}}>
+        <Typography sx={{fontSize: {xs:'2rem',md:'2.5rem'},p : '1rem'}}>
             Edit Product
         </Typography>
         <Box sx={{...boxStyles}}>

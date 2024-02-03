@@ -3,7 +3,7 @@ const mongoose =  require("mongoose");
 //Order
 const orderSchema = new mongoose.Schema({
     orderId: String,
-    userId : {type : mongoose.Schema.Types.ObjectId, ref : 'User'},
+    username : String,
     address: {
         name : String,
         houseAddress : String,
@@ -20,7 +20,7 @@ const orderSchema = new mongoose.Schema({
         }
     ],
     totalPrice : Number,
-    date : {type : Date, default : Date.now},
+    date : String,
     isDelivered : {type : Boolean, default : false}
 })
 

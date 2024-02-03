@@ -55,7 +55,7 @@ export const CreateProduct = () => {
       };
     
     const fieldStyles = {
-        width : '500px'
+        width : {xs:'250px',sm:'350px',md:'500px'}
     }
       
 
@@ -68,9 +68,9 @@ export const CreateProduct = () => {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        p: '3rem'
+        p: {xs:'0.5rem',md:'3rem'}
     }}>
-        <Typography sx={{fontSize: '2.5rem',p : '1rem'}}>
+        <Typography sx={{fontSize: {xs:'2rem',md:'2.5rem'},p : {xs:'0.5',md:'1rem'}}}>
             Create Product
         </Typography>
         <Box sx={{...boxStyles}}>

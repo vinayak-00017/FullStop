@@ -5,7 +5,9 @@ const fetch = require("node-fetch");
 require("dotenv").config();
 
 const path =  require("path");
+const { Order } = require("../db/Order");
 const router = express();
+let sCart = [];
 
   
 
@@ -15,135 +17,79 @@ const base = "https://api-m.sandbox.paypal.com";
 
 
 
-
-
 const generateAccessToken = async () => {
-
   try {
-
     if (!PAYPAL_CLIENT_ID || !PAYPAL_CLIENT_SECRET) {
-
       throw new Error("MISSING_API_CREDENTIALS");
-
     }
-
     const auth = Buffer.from(
-
       PAYPAL_CLIENT_ID + ":" + PAYPAL_CLIENT_SECRET,
-
     ).toString("base64");
-
     const response = await fetch(`${base}/v1/oauth2/token`, {
-
       method: "POST",
-
       body: "grant_type=client_credentials",
-
       headers: {
-
         Authorization: `Basic ${auth}`,
-
       },
-
     });
 
     
-
     const data = await response.json();
-
     return data.access_token;
-
   } catch (error) {
-
     console.error("Failed to generate Access Token:", error);
-
   }
-
 };
 
-  
 
 /**
-
 * Create an order to start the transaction.
-
 * @see https://developer.paypal.com/docs/api/orders/v2/#orders_create
-
 */
 
 const createOrder = async (cart) => {
 
   // use the cart information passed from the front-end to calculate the purchase unit details
-
   console.log(
-
     "shopping cart information passed from the frontend createOrder() callback:",
-
     cart,
-
   );
+  sCart = cart
+
 
   
-
   const accessToken = await generateAccessToken();
-
   const url = `${base}/v2/checkout/orders`;
-
   const payload = {
-
     intent: "CAPTURE",
-
     purchase_units: [
-
       {
-
         amount: {
-
           currency_code: "USD",
-
-          value: cart[0].cost,
-
+          value: cart.cost.toFixed(2),
         },
-
       },
-
     ],
-
   };
 
-  
 
   const response = await fetch(url, {
-
     headers: {
-
       "Content-Type": "application/json",
-
       Authorization: `Bearer ${accessToken}`,
 
       // Uncomment one of these to force an error for negative testing (in sandbox mode only). Documentation:
 
       // https://developer.paypal.com/tools/sandbox/negative-testing/request-headers/
-
       // "PayPal-Mock-Response": '{"mock_application_codes": "MISSING_REQUIRED_PARAMETER"}'
-
       // "PayPal-Mock-Response": '{"mock_application_codes": "PERMISSION_DENIED"}'
-
       // "PayPal-Mock-Response": '{"mock_application_codes": "INTERNAL_SERVER_ERROR"}'
-
     },
-
     method: "POST",
-
     body: JSON.stringify(payload),
-
   });
-
   return handleResponse(response);
-
 };
-
-  
 
 /**
 
@@ -154,21 +100,13 @@ const createOrder = async (cart) => {
 */
 
 const captureOrder = async (orderID) => {
-
   const accessToken = await generateAccessToken();
-
   const url = `${base}/v2/checkout/orders/${orderID}/capture`;
 
-  
-
   const response = await fetch(url, {
-
     method: "POST",
-
     headers: {
-
       "Content-Type": "application/json",
-
       Authorization: `Bearer ${accessToken}`,
 
       // Uncomment one of these to force an error for negative testing (in sandbox mode only). Documentation:
@@ -184,10 +122,7 @@ const captureOrder = async (orderID) => {
     },
 
   });
-  
-
   return handleResponse(response);
-
 };
 
   
@@ -208,31 +143,21 @@ async function handleResponse(response) {
     const errorMessage = await response.text();
     throw new Error(errorMessage);
   }
-
 }
 
   
 
 router.post("/api/orders", async (req, res) => {
-
   try {
 
     // use the cart information passed from the front-end to calculate the order amount detals
-
     const { cart } = req.body;
-
     const { jsonResponse, httpStatusCode } = await createOrder(cart);
-
     res.status(httpStatusCode).json(jsonResponse);
-
   } catch (error) {
-
     console.error("Failed to create order:", error);
-
     res.status(500).json({ error: "Failed to create order." });
-
   }
-
 });
 
   
@@ -244,7 +169,21 @@ router.post("/api/orders/:orderID", async (req, res) => {
     const { orderID } = req.params;
 
     const { jsonResponse, httpStatusCode } = await captureOrder(orderID);
-    console.log(jsonResponse)
+    
+    // Update the order in the database
+    const newOrder = new Order({
+      orderID : jsonResponse.id,
+      username : sCart.userName,
+      products : sCart.cart.map((item)=>({
+        productId : item.id,
+        quantity : item.quantity,
+        size : item.size
+      })),
+      totalPrice : sCart.cost,
+      date : new Date().toISOString().split('T')[0],
+      address: sCart.address
+    })
+    await newOrder.save()
 
     res.status(httpStatusCode).json(jsonResponse);
 

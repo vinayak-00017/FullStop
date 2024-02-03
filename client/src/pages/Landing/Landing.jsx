@@ -65,7 +65,7 @@ const Landing = () => {
                 }
             </Carousel>
         </Box>
-        <Typography sx={{fontSize:'3rem',pt:'3rem'}}>
+        <Typography sx={{fontSize:{xs:'2rem',md:'3rem'},pt:'3rem'}}>
             Latest Products
         </Typography>
         <Grid container spacing={6} sx={{mt:'1rem'}}>

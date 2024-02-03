@@ -1,8 +1,8 @@
 import { Box, Divider, Grid, Typography } from "@mui/material"
 import { useNavigate } from "react-router-dom"
-import CustomizedMenus from "./DropDownMenu"
+import CustomizedMenus from "../DropDownMenu"
 import { useRecoilState } from "recoil"
-import { cartState } from "../store/atoms/cart"
+import { cartState } from "../../store/atoms/cart"
 import { useEffect } from "react"
 
 

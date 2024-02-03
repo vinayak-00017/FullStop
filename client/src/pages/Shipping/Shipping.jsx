@@ -1,21 +1,18 @@
 import { Box, Button, Card, Paper, TextField, Typography } from "@mui/material"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { useRecoilState } from "recoil"
+import { addressState } from "../../store/atoms/address"
 
 export const Shipping =()=>{
 
-    const [houseAddress,setHouseAddress] = useState('')
-    const [name,setName] = useState('')
-    const [city,setCity] = useState('')
-    const [zip,setZip] = useState('')
-    const [country,setCountry] = useState('')
-    const [mNumber,setMNumber] = useState('')
+    const [address,setAddress] = useRecoilState(addressState)
     const navigate = useNavigate()
     const [showError, setShowError] = useState(false);
 
     const handleClick = () =>{
-        if(houseAddress && city && zip && country && mNumber && name){
-            navigate('/order',{state: { houseAddress,city,zip,country}})
+        if(address.houseAddress && address.city && address.zip && address.country && address.mobileNumber && address.name){
+            navigate('/order')
         }else{
             setShowError(true)
         }
@@ -39,27 +36,27 @@ export const Shipping =()=>{
                         <Typography>
                             Name
                         </Typography>
-                        <TextField variant="filled"  sx={{width:'600px',}}
-                            value={name}
-                            onChange={(e)=>{setName(e.target.value)}}
+                        <TextField variant="filled"  sx={{width:{xs:'250px',md:'600px'},}}
+                            value={address.name}
+                            onChange={(e)=>{setAddress({ ...address, name: e.target.value })}}
                         ></TextField>
                     </Box>
                     <Box sx={{my:'0.5rem'}}>
                         <Typography>
                             House Address
                         </Typography>
-                        <TextField variant="filled"  sx={{width:'600px',}}
-                            value={houseAddress}
-                            onChange={(e)=>{setHouseAddress(e.target.value)}}
+                        <TextField variant="filled"  sx={{width:{xs:'250px',md:'600px'}}}
+                            value={address.houseAddress}
+                            onChange={(e)=>{setAddress({ ...address, houseAddress: e.target.value })}}
                         ></TextField>
                     </Box>
                     <Box sx={{my:'0.5rem'}}>
                         <Typography>
                             City 
                         </Typography>
-                        <TextField variant="filled" sx={{width:'600px'}}
-                            value={city}
-                            onChange={(e)=>{setCity(e.target.value)}}
+                        <TextField variant="filled" sx={{width:{xs:'250px',md:'600px'}}}
+                            value={address.city}
+                            onChange={(e)=>{setAddress({ ...address, city: e.target.value })}}
                         >
                         </TextField>
                     </Box>
@@ -67,9 +64,9 @@ export const Shipping =()=>{
                         <Typography>
                             Zip code 
                         </Typography>
-                        <TextField variant="filled" sx={{width:'600px'}}
-                             value={zip}
-                             onChange={(e)=>{setZip(e.target.value)}}
+                        <TextField variant="filled" sx={{width:{xs:'250px',md:'600px'}}}
+                             value={address.zip}
+                             onChange={(e)=>{setAddress({ ...address, zip: e.target.value })}}
                         >  
                         </TextField>
                     </Box>
@@ -77,9 +74,9 @@ export const Shipping =()=>{
                         <Typography>
                             Country
                         </Typography>
-                        <TextField variant="filled" required sx={{width:'600px'}}
-                             value={country}
-                             onChange={(e)=>{setCountry(e.target.value)}}
+                        <TextField variant="filled" required sx={{width:{xs:'250px',md:'600px'}}}
+                             value={address.country}
+                             onChange={(e)=>{setAddress({ ...address, country: e.target.value })}}
                         >
                         </TextField>
                     </Box>
@@ -87,9 +84,9 @@ export const Shipping =()=>{
                         <Typography>
                             Mobile number
                         </Typography>
-                        <TextField variant="filled" required sx={{width:'600px'}}
-                             value={mNumber}
-                             onChange={(e)=>{setMNumber(e.target.value)}}
+                        <TextField variant="filled" required sx={{width:{xs:'250px',md:'600px'}}}
+                             value={address.mobileNumber}
+                             onChange={(e)=>{setAddress({ ...address, mobileNumber: e.target.value })}}
                         >
                         </TextField>
                         <Typography sx={{fontSize:'0.7rem', ml:'1rem'}}>

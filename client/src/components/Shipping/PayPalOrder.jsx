@@ -1,14 +1,29 @@
 import { PayPalButtons } from "@paypal/react-paypal-js";
-import { BASE_URL } from "../config";
-import { useRecoilValue } from "recoil";
-import { cartTotalPrice } from "../store/selectors/cartTotalPrice";
-import { user } from "../store/selectors/user";
+import { BASE_URL } from "../../config";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { cartTotalPrice } from "../../store/selectors/cartTotalPrice";
+import { user } from "../../store/selectors/user";
+import { cart } from "../../store/selectors/cart";
+import { addressState } from "../../store/atoms/address";
+import { useNavigate } from "react-router-dom";
+import {toast} from "react-toastify"
+import { cartState } from "../../store/atoms/cart";
 
 export const PayPalOrder = () => {
     
   const totalCost = useRecoilValue(cartTotalPrice)
   const userName = useRecoilValue(user)
+  const address = useRecoilValue(addressState)
+  const navigate = useNavigate()
+  const setCart = useSetRecoilState(cartState)
+  const sCart = useRecoilValue(cart).map((item)=>({                
+    id : item.item._id,
+    quantity : item.quantity,
+    size : item.size           
+}))
+
     const createOrder = (data) => {
+
 
         // Order is created on the server and the order id is returned
 
@@ -27,12 +42,14 @@ export const PayPalOrder = () => {
           // like product skus and quantities
 
           body: JSON.stringify({
-            cart:[ 
+            cart:
               {
                 userName: userName,
                 cost : totalCost,
+                cart : sCart,
+                address,
               },
-            ],
+            
 
           }),
 
@@ -75,6 +92,10 @@ export const PayPalOrder = () => {
         })
         .then((data) => {
           console.log('payment successful', data);
+          setCart([])
+          localStorage.removeItem('cart')
+          toast.success('order placed')
+          navigate('/')
         })
         .catch((error) => {
           console.error('There has been a problem with your fetch operation:', error);

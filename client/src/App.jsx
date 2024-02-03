@@ -7,8 +7,8 @@ import { Box, createTheme,ThemeProvider } from '@mui/material'
 import { Signup } from './pages/Signup'
 import { Login } from './pages/Login'
 import {  useSetRecoilState } from 'recoil'
-import { Cart } from './pages/Cart'
-import { Order } from './pages/Order'
+import { Cart } from './pages/Shipping/Cart'
+import { Order } from './pages/Shipping/Order'
 import { AdminLogin } from './pages/Admin/AdminLogin'
 import { AdminDashboard } from './pages/Admin/AdminDashboard'
 import { useEffect } from 'react'
@@ -18,13 +18,13 @@ import { EditProduct } from './pages/Admin/EditProduct'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import { CreateProduct } from './pages/Admin/CreateProduct'
-import { CheckoutSuccess } from './pages/CheckoutSuccess'
 import InitUser from './components/InitUser'
 import { InitProducts } from './components/InitProducts'
 import { SearchResults } from './pages/SearchResults'
 import { ErrorPage } from './pages/ErrorPage'
-import { Shipping } from './pages/Shipping'
-import { Profile } from './pages/Profile'
+import { Shipping } from './pages/Shipping/Shipping'
+import { Profile } from './pages/profile/Profile'
+import { Orders } from './pages/profile/Orders'
 
 
 
@@ -84,7 +84,6 @@ function App() {
         <Route path={'/product/:id'} element={<ProductPage/>}/>
         <Route path='/' element={<Landing/>}/>
         <Route path='/cart' element={<Cart/>}/>
-        <Route path='/checkout-success' element={<CheckoutSuccess/>}/>
         <Route path='/order' element={<Order/>}/>
         <Route path='/adminLogin' element={<AdminLogin/>}/>
         <Route path='/adminDashboard' element={<AdminDashboard/>}/>
@@ -94,6 +93,7 @@ function App() {
         <Route path='/search' element={<SearchResults/>}/>
         <Route path='/shipping' element={<Shipping/>}/>
         <Route path='/profile' element={<Profile/>}/>
+        <Route path='/orders' element={<Orders/>}/>
         <Route path='/*' element={<ErrorPage/>} />
       </Routes>
       <ToastContainer

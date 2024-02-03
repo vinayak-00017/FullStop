@@ -7,6 +7,14 @@ const userSchema = new mongoose.Schema({
     username : String,
     password : String,
     email : String,
+    mobileNumber: String,
+    address : {
+        name : String,
+        houseAddress : String,
+        city : String,
+        country : String ,
+        zip : String,
+    }
 
 })
 

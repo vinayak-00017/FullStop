@@ -3,18 +3,22 @@ import ShoppingCart from "@mui/icons-material/ShoppingCart"
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import { useNavigate } from "react-router-dom";
-import { useRecoilState } from "recoil"
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil"
 import { cartState } from "../../store/atoms/cart"
 import { useEffect, useState } from "react";
 import LockIcon from '@mui/icons-material/Lock';
 import { toast } from "react-toastify";
+import { buynowState } from "../../store/atoms/buynow";
+import { user } from "../../store/selectors/user";
 
 
 
 export const ActionBox = ({size,product}) => {
+    console.log(product)
 
     const [cart, setCart] = useRecoilState(cartState)
     const [quantity,setQuantity] = useState(1)
+    const isUser = useRecoilValue(user)
 
     const navigate = useNavigate()
 
@@ -110,7 +114,15 @@ export const ActionBox = ({size,product}) => {
                             <ShoppingCart></ShoppingCart> Add to Cart
                         </Button>
                     </Box><Box sx={{ p: '1rem' }}>
-                        <Button variant='contained' size='large'>
+                        <Button variant='contained' size='large' onClick={()=>{
+                            if(isUser){
+                                setCart([{item: product,quantity,size}])
+                                navigate('/shipping')
+                            }else{
+                                alert('log in as a user to continue')
+                                navigate('/login')
+                            }
+                        }}>
                             Buy now
                         </Button>
                     </Box>
@@ -119,8 +131,8 @@ export const ActionBox = ({size,product}) => {
                     </Box>
                     </Box> 
             ): (
-                <Button  variant="contained">
-                    Simailar items
+                <Button onClick={()=>navigate('/')} variant="contained">
+                    Similar items
                 </Button>
             )}
        
