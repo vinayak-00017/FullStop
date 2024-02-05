@@ -39,6 +39,7 @@ export const SearchBar = () => {
                 onKeyDown={(e)=>{
                     if(e.key === 'Enter'){
                         handleSubmit()
+                        e.target.blur()
                     }
                 }}
                 sx={{width : { xs:'18rem',sm:'15rem',md:'26rem',lg:'35rem'},

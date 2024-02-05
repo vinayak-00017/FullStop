@@ -52,6 +52,11 @@ export default function BasicMenu() {
     navigate('/login')
   }
 
+  const handleProfile = () =>{
+    navigate('/profile')
+    handleClose()
+  }
+
   return (
     <div>
       {/* <Button
@@ -84,7 +89,7 @@ export default function BasicMenu() {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
+        <MenuItem onClick={handleProfile}>Profile</MenuItem>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
     </div>

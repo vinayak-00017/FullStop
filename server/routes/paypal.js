@@ -170,9 +170,9 @@ router.post("/api/orders/:orderID", async (req, res) => {
 
     const { jsonResponse, httpStatusCode } = await captureOrder(orderID);
     
-    // Update the order in the database
+    // Update the order in the database)
     const newOrder = new Order({
-      orderID : jsonResponse.id,
+      orderId : jsonResponse.id,
       username : sCart.userName,
       products : sCart.cart.map((item)=>({
         productId : item.id,
