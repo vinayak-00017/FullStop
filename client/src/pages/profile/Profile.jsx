@@ -4,6 +4,8 @@ import axios from "axios";
 import { BASE_URL } from "../../config";
 import { ProfileCard } from "../../components/ProfileCard";
 import { Box, CircularProgress } from "@mui/material";
+import { toast } from "react-toastify";
+
 
 
 export const Profile = () => {
@@ -27,7 +29,6 @@ export const Profile = () => {
                         authentication : localStorage.getItem('token')
                     }
                 })
-                console.log(response.data)
                 setCity(response.data.address.city)
                 setCountry(response.data.address.country)
                 setName(response.data.address.name)
@@ -64,6 +65,8 @@ export const Profile = () => {
                     authentication : localStorage.getItem('token')
                 }
             })
+            toast.success(response.data.message)
+            window.location.reload()
         }catch(err){
             console.error(err)
         }
