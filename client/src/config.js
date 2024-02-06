@@ -1,1 +1,1 @@
-export const BASE_URL = 'https://full-stop-api.vercel.app/'
+export const BASE_URL = 'https://full-stop-api.vercel.app'
