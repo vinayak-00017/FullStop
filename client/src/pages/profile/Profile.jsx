@@ -66,7 +66,6 @@ export const Profile = () => {
                 }
             })
             toast.success(response.data.message)
-            window.location.reload()
         }catch(err){
             console.error(err)
         }
