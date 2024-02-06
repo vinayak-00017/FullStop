@@ -64,8 +64,6 @@ export const Profile = () => {
                     authentication : localStorage.getItem('token')
                 }
             })
-            console.log(response.data)
-            setUpdated[updated+1]
         }catch(err){
             console.error(err)
         }

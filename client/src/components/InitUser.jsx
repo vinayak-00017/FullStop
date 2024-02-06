@@ -22,7 +22,6 @@ export default function InitUser(){
                       headers : headers
                   })
                   if(response.status == 200){
-                      console.log(response.data.user)
                       setUserLogin({
                         isLoading : false,
                         isUser: response.data.user.username
