@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { Badge, Typography } from '@mui/material';
+import { Badge, Box, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { admin } from '../../store/selectors/admin';
@@ -56,20 +56,13 @@ export default function BasicMenu() {
     navigate('/profile')
     handleClose()
   }
+  const handleOrders = () =>{
+    navigate('/orders')
+    handleClose()
+  }
 
   return (
     <div>
-      {/* <Button
-        id="basic-button"
-        aria-controls={open ? 'basic-menu' : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
-        onClick={handleClick}
-      >
-        <AccountCircleIcon></AccountCircleIcon>
-        <Typography sx={{display: {xs:'none',md:'block'}}}>{title}</Typography>
-        <ArrowDropDownIcon></ArrowDropDownIcon>
-      </Button> */}
       <Badge color="secondary" 
             aria-controls={open ? 'basic-menu' : undefined}
             aria-haspopup="true"
@@ -89,7 +82,10 @@ export default function BasicMenu() {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={handleProfile}>Profile</MenuItem>
+        {username && <Box>
+          <MenuItem onClick={handleProfile}>Profile</MenuItem>
+          <MenuItem onClick={handleOrders}>Orders</MenuItem>
+        </Box>}
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
     </div>

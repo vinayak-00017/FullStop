@@ -40,7 +40,7 @@ export const CreateProduct = () => {
             })
             if(response.status == 200){
                 toast.success(response.data.message)
-                navigate('/adminDashboard')
+                navigate('/admin-dashboard')
                 // window.location.reload()
             }
         }catch(err){

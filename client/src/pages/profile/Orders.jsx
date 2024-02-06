@@ -2,10 +2,12 @@ import { Box, Button, Grid, Paper, Typography } from "@mui/material"
 import { useEffect, useState } from "react"
 import { BASE_URL } from "../../config"
 import axios from 'axios'
+import { useNavigate } from "react-router-dom"
 
 export const Orders = () =>{
 
     const [orders,setOrders] = useState([])
+    const navigate = useNavigate()
 
     useEffect(() => {
         const getOrders = async() =>{
@@ -50,7 +52,9 @@ export const Orders = () =>{
                         )}
                     </Grid>
                     <Grid item md={2}>
-                        <Button variant="contained">
+                        <Button variant="contained"
+                            onClick={()=> navigate(`/order-details/${order._id}`)}
+                        >
                            Details 
                         </Button>
                     </Grid>

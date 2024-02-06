@@ -17,7 +17,7 @@ export const AdminLogin = () => {
                 password
             }) 
             localStorage.setItem("adminToken",`Bearer ${response.data.token}`)
-            navigate('/adminDashboard')
+            navigate('/admin-dashboard')
         }catch(err){
             console.error(err)
         }

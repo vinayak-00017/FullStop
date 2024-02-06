@@ -55,7 +55,7 @@ export const Appbar = () => {
            {/* {isMediumScreen && <MenuIcon color="secondary" sx={{fontSize: '2.5rem'}}/>} */}
             <Box sx={{display: 'flex'}}>
             {admin.isAdmin && <Badge color="secondary" 
-             sx={{color: 'white',cursor: 'pointer',ml:'1rem'}} onClick={() => {navigate('/adminDashboard')}}>
+             sx={{color: 'white',cursor: 'pointer',ml:'1rem'}} onClick={() => {navigate('/admin-dashboard')}}>
                 <AdminPanelSettingsIcon></AdminPanelSettingsIcon>
                 <Typography sx={{display: {xs:'none',md:'block'}}}>Admin</Typography>
             </Badge>}

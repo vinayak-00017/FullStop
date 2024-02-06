@@ -26,7 +26,6 @@ export const Order = () =>{
     total = buynow.total
    }
    
-   console.log(cartItems)
 
     return(
         <Grid container spacing={2} sx={{p:{xs:'1rem',md:'3rem'}}}>

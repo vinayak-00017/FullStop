@@ -71,7 +71,7 @@ export const Login = ()=> {
             setAdmin({
                 isAdmin: username
             })
-            navigate('/adminDashboard')
+            navigate('/admin-dashboard')
         }catch(err){
             console.error(err)
         }

@@ -99,5 +99,20 @@ router.post('/demo',authenticateJwt,async(req,res)=>{
     }
 })
 
+router.get('/order/:id',authenticateJwt,async(req,res)=>{
+    const id = req.params.id;
+    const user = await User.findOne({username : req.user.username})
+    if(user){
+        const order = await Order.findById(id).populate('products.productId')
+        if(order){
+            res.json(order)
+        }else{
+            res.status(404).json({message:'order not found'})
+        }
+    }else{
+        res.status(404).json({message : 'user not found'})
+    }
+})
+
 module.exports = router;
 

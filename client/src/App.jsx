@@ -25,6 +25,7 @@ import { ErrorPage } from './pages/ErrorPage'
 import { Shipping } from './pages/Shipping/Shipping'
 import { Profile } from './pages/profile/Profile'
 import { Orders } from './pages/profile/Orders'
+import { OrderDetails } from './pages/profile/OrderDetails'
 
 
 
@@ -85,8 +86,8 @@ function App() {
         <Route path='/' element={<Landing/>}/>
         <Route path='/cart' element={<Cart/>}/>
         <Route path='/order' element={<Order/>}/>
-        <Route path='/adminLogin' element={<AdminLogin/>}/>
-        <Route path='/adminDashboard' element={<AdminDashboard/>}/>
+        <Route path='/admin-login' element={<AdminLogin/>}/>
+        <Route path='/admin-dashboard' element={<AdminDashboard/>}/>
         <Route path='/editProduct/:id' element={<EditProduct/>}/>
         <Route path='/createProduct' element={<CreateProduct/>}/>
         <Route path='/order' element={<Order/>}/>
@@ -94,6 +95,7 @@ function App() {
         <Route path='/shipping' element={<Shipping/>}/>
         <Route path='/profile' element={<Profile/>}/>
         <Route path='/orders' element={<Orders/>}/>
+        <Route path='/order-details/:id' element={<OrderDetails/>}/>
         <Route path='/*' element={<ErrorPage/>} />
       </Routes>
       <ToastContainer

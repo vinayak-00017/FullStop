@@ -10,7 +10,7 @@ const orderSchema = new mongoose.Schema({
         city : String,
         zip : String,
         country : String,
-        mNumber : String
+        mobileNumber : String
     },
     products : [
         {
