@@ -4,10 +4,12 @@ import { userState } from "../store/atoms/user";
 import { useEffect } from "react";
 import { BASE_URL } from "../config";
 import { adminState } from "../store/atoms/admin";
+import { addressState } from "../store/atoms/address";
 
 export default function InitUser(){
     const setUserLogin = useSetRecoilState(userState);
     const setAdminLogin = useSetRecoilState(adminState)
+    const setAddress = useSetRecoilState(addressState)
 
     useEffect(() => {
     const init = async() => {
@@ -24,6 +26,14 @@ export default function InitUser(){
                       setUserLogin({
                         isLoading : false,
                         isUser: response.data.user.username
+                      })
+                      setAddress({
+                        houseAddress: response.data.user.address.houseAddress,
+                        city: response.data.user.address.city,
+                        country: response.data.user.address.country,
+                        zip: response.data.user.address.zip,
+                        name: response.data.user.address.name,
+                        mobileNumber: response.data.user.mobileNumber
                       })
                   }else{
                     setUserLogin({
