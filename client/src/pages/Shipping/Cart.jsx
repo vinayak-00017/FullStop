@@ -23,7 +23,7 @@ export const Cart = () => {
         if(isUser){
             navigate('/shipping')
         }else{
-            alert("login to proceed")
+            alert("login as a user to proceed")
             navigate('/login')
         }
     }
