@@ -1,6 +1,6 @@
-import { Box, Button, Divider } from "@mui/material"
+import { Box, Button} from "@mui/material"
 import EngineeringIcon from '@mui/icons-material/Engineering';
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { cart } from "../../store/selectors/cart";
 import { cartTotalPrice } from "../../store/selectors/cartTotalPrice";
 import { addressState } from "../../store/atoms/address";
@@ -8,10 +8,12 @@ import axios from "axios";
 import { BASE_URL } from "../../config";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { cartState } from "../../store/atoms/cart";
 
 export const DemoPay = () =>{
 
     const navigate = useNavigate()
+    const [recoilCart,setRecoilCart] = useRecoilState(cartState)
     const sCart = useRecoilValue(cart).map((item)=>({                
         id : item.item._id,
         quantity : item.quantity,
@@ -38,6 +40,8 @@ export const DemoPay = () =>{
             })
             console.log(response.data)
             toast.success('order placed!')
+            localStorage.removeItem('cart')
+            setRecoilCart([])
             navigate('/')
         }catch(err){
             console.error(err)
