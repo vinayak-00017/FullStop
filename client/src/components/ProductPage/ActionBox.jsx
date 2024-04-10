@@ -3,12 +3,11 @@ import ShoppingCart from "@mui/icons-material/ShoppingCart"
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import { useNavigate } from "react-router-dom";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil"
+import { useRecoilState, useRecoilValue} from "recoil"
 import { cartState } from "../../store/atoms/cart"
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import LockIcon from '@mui/icons-material/Lock';
 import { toast } from "react-toastify";
-import { buynowState } from "../../store/atoms/buynow";
 import { user } from "../../store/selectors/user";
 
 
