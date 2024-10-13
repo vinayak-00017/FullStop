@@ -22,7 +22,7 @@ export const PayPalOrder = () => {
     size : item.size           
 }))
 
-    const createOrder = (data) => {
+    const createOrder = (data, actions) => {
 
 
         // Order is created on the server and the order id is returned
@@ -61,7 +61,7 @@ export const PayPalOrder = () => {
 
       };
 
-      const onApprove = (data) => {
+      const onApprove = (data, actions) => {
 
         console.log(data)
          // Order is captured on the server and the response is returned to the browser
