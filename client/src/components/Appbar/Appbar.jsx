@@ -1,5 +1,4 @@
-import { Button, CircularProgress, useTheme, Typography, useMediaQuery, Badge } from "@mui/material";
-import * as React from 'react';
+import {  CircularProgress, useTheme, Typography, useMediaQuery, Badge } from "@mui/material";
 import { Box } from "@mui/system";
 import { useNavigate } from "react-router-dom";
 import { SearchBar } from "./SearchBar";
@@ -19,10 +18,10 @@ export const Appbar = () => {
     const user = useRecoilValue(userState)
     const admin = useRecoilValue(adminState)
     const theme = useTheme()
-    const isMediumScreen = useMediaQuery(theme.breakpoints.down('md'))
+    // const isMediumScreen = useMediaQuery(theme.breakpoints.down('md'))
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'))
     const cartCount = useRecoilValue(cartItemCount)
-    const [cartClicked,setCartClicked] = React.useState(false)
+    // const [cartClicked,setCartClicked] = React.useState(false)
     
 
     if(admin.isLoading || user.isLoading){
@@ -34,7 +33,6 @@ export const Appbar = () => {
             display : 'flex',
             justifyContent : 'space-between',
             alignItems : 'center',
-            // bgcolor: '#e87121',
             bgcolor: '#131921',
             padding : '0.4rem',
             pl : {xs: '1rem',sm:'4rem'},
